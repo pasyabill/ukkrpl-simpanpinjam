@@ -1,18 +1,21 @@
 <?php
- if(isset($_COOKIE["remember"])){
+  require("php/connection.php");
+  if(isset($_COOKIE["remember"]) && isset($_COOKIE["name"])){
   $username = $_COOKIE["name"];
   $password = $_COOKIE["password"];
 
   $query = "SELECT * FROM anggota WHERE nama= '$username'";
-  $login =  query($query);
-  if($login && mysqli_fetch_row($login)> 0){
+    $login =  query($query);
+  if($login && mysqli_num_rows($login)> 0){
     $user = mysqli_fetch_assoc($login);
+
     if(password_verify($password, $user["password"])){
       session_start();
       $_SESSION['username'] = $user['nama'];
       header("Location: dashboard.php");
       exit();
     }
+  }else{
   }
 }
 ?>
