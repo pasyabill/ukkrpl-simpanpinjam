@@ -7,7 +7,7 @@
     $query = "SELECT * FROM anggota WHERE id_anggota= '$userid'";
     $login =  query($query);
     $user = mysqli_fetch_assoc($login);
-    if(mysqli_num_rows($login) == 0 || password_verify($_SESSION["pass"], $user["password"])){
+    if(mysqli_num_rows($login) == 0 || !password_verify($_SESSION["pass"], $user["password"])){
         header("Location: login.php");
         exit();
     }
@@ -58,9 +58,9 @@
                 <a href="index.html" class="easion-logo"><i class="fas fa-sun"></i> <span>PleciPlus</span></a>
             </header>
             <nav class="dash-nav-list">
-                <a href="../index.html" class="dash-nav-item">
+                <a href="index.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> Home </a>
-                <a href="index.html" class="dash-nav-item">
+                <a href="dashboard.php" class="dash-nav-item">
                     <i class="fas fa-info ps-3"></i> Dashboard </a>
                 <a href="index.html" class="dash-nav-item">
                     <i class="fas fa-home"></i> Ajukan Pinjaman </a>

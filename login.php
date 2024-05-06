@@ -13,7 +13,7 @@ session_start();
       if(password_verify($password, $user["password"])){
         session_start();
         $_SESSION['userid'] = $user['id_anggota'];
-        $_SESSION['pass'] = $user['password'];
+        $_SESSION['pass'] = $password;
         header("Location: dashboard.php");
         exit();
       }
@@ -31,7 +31,7 @@ session_start();
       $user = mysqli_fetch_assoc($login);
       if(password_verify($password, $user["password"])){
         $_SESSION['userid'] = $user['id_anggota'];
-        $_SESSION['pass'] = $user['password'];
+        $_SESSION['pass'] = $password;
         if($_POST["remember"]){
           setcookie("remember", "true", time() + (86400 * 30), "/");
           setcookie("userid", $user["id_anggota"], time() + (86400 * 30), "/");

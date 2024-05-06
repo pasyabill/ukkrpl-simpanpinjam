@@ -1,3 +1,23 @@
+<?php
+	require("php/connection.php");
+	session_start();
+	$islogin = false;
+	if(isset($_SESSION["userid"]) && isset( $_SESSION["pass"])){
+		global $islogin;
+		$userid = $_SESSION["userid"];
+		$query = "SELECT * FROM anggota WHERE id_anggota= '$userid'";
+		$login =  query($query);
+		$user = mysqli_fetch_assoc($login);
+		if(password_verify($_SESSION["pass"], $user["password"])){
+			$islogin  = true;
+		}else{
+			var_dump($user);
+		}
+	}
+
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -99,11 +119,20 @@
 								</div>
 								<!--/ End Main Menu -->
 							</div>
+
+							<?php if(!$islogin) : ?>
 							<div class="col-lg-2 col-12">
 								<div class="get-quote ms-5">
 									<a href="login.php" class="btn">Login</a>
 								</div>
 							</div>
+							<?php else : ?>
+								<div class="col-lg-2 col-12">
+								<div class="get-quote ms-5">
+									<a href="dashboard.php" class="btn"><?= $user["nama"]?></a>
+								</div>
+							</div>
+							<?php endif ?>
 						</div>
 					</div>
 				</div>
