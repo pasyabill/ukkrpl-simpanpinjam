@@ -1,30 +1,38 @@
 
 <?php
   require("php/connection.php");
-  if(isset($_COOKIE["remember"]) && isset($_COOKIE["name"])){
-  $username = $_COOKIE["name"];
-  $password = $_COOKIE["password"];
-
-  $query = "SELECT * FROM anggota WHERE nama= '$username'";
+  session_start();
+    if(isset($_SESSION["userid"]) && isset( $_SESSION["pass"])){
+    $userid = $_SESSION["userid"];
+    $query = "SELECT * FROM anggota WHERE id_anggota= '$userid'";
     $login =  query($query);
-  if($login && mysqli_num_rows($login)> 0){
     $user = mysqli_fetch_assoc($login);
+    if(mysqli_num_rows($login) == 0 || password_verify($_SESSION["pass"], $user["password"])){
+        header("Location: login.php");
+        exit();
+    }
 
-    if(password_verify($password, $user["password"])){
-      session_start();
-      $_SESSION['username'] = $user['nama'];
-      header("Location: dashboard.php");
+}else  if(isset($_COOKIE["remember"]) && isset($_COOKIE["name"])){
+    $username = $_COOKIE["userid"];
+    $password = $_COOKIE["password"];
+  
+    $query = "SELECT * FROM anggota WHERE nama= '$username'";
+      $login =  query($query);
+    if($login && mysqli_num_rows($login)> 0){
+      $user = mysqli_fetch_assoc($login);
+      if(password_verify($password, $user["password"])){
+        $_SESSION['userid'] = $user['id_anggota'];
+        $_SESSION['pass'] = $user['password'];
+      }
+    }else{
+      header("Location: login.php");
       exit();
     }
-  }else{
-    header("Location: login.php");
-
+  }else
+  {
+      header("Location: login.php");
+      exit();
   }
-}else
-{
-    header("Location: login.php");
-
-}
 ?>
 
 <!doctype html>
@@ -85,7 +93,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                             <a class="dropdown-item" href="#!">Profile</a>
-                            <a class="dropdown-item" href="login.html">Logout</a>
+                            <a class="dropdown-item" href="logout.php">Logout</a>
                         </div>
                     </div>
                 </div>

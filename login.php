@@ -1,37 +1,42 @@
 <?php
 require("php/connection.php");
+session_start();
+
   if(isset($_COOKIE["remember"])){
-    $username = $_COOKIE["name"];
+    $userid = $_COOKIE["userid"];
     $password = $_COOKIE["password"];
 
-    $query = "SELECT * FROM anggota WHERE nama= '$username'";
+    $query = "SELECT * FROM anggota WHERE id_anggota= '$userid'";
     $login =  query($query);
     if($login && mysqli_num_rows($login)> 0){
       $user = mysqli_fetch_assoc($login);
       if(password_verify($password, $user["password"])){
         session_start();
-        $_SESSION['username'] = $user['nama'];
+        $_SESSION['userid'] = $user['id_anggota'];
+        $_SESSION['pass'] = $user['password'];
         header("Location: dashboard.php");
         exit();
       }
     }
   }
   if(isset($_POST["submit"])){
-    $username = $_POST["username"];
+    $nama = $_POST["username"];
+
     $password = $_POST["password"];
 
-    $query = "SELECT * FROM anggota WHERE nama= '$username'";
+    $query = "SELECT * FROM anggota WHERE nama= '$nama'";
     $login =  query($query);
 
     if($login && mysqli_num_rows($login)> 0){
       $user = mysqli_fetch_assoc($login);
       if(password_verify($password, $user["password"])){
-        session_start();
-        $_SESSION['username'] = $user['nama'];
+        $_SESSION['userid'] = $user['id_anggota'];
+        $_SESSION['pass'] = $user['password'];
         if($_POST["remember"]){
           setcookie("remember", "true", time() + (86400 * 30), "/");
-          setcookie("name", $username, time() + (86400 * 30), "/");
+          setcookie("userid", $user["id_anggota"], time() + (86400 * 30), "/");
           setcookie("password", $password, time() + (86400 * 30), "/");
+
         }
         header("Location: dashboard.php");
         exit();
