@@ -45,7 +45,7 @@
 </head>
 <body>
     
-<div class="box container-fluid d-flex justify-content-center align-items-center  h-100">
+<div class="box">
 <form method="post" action=""  class="mw-50 shadow-lg p-3 h-auto d-inline-block rounded-2 needs-validation" style="width: 400px; height: 600px">
   <div class="mb-3">
     <div class="title pt-3 pb-3">
