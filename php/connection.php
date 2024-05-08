@@ -20,4 +20,38 @@ function query($sql) {
     }
     return $result;
 }
+
+function validation(){
+        if(isset($_SESSION["userid"]) && isset( $_SESSION["pass"])){
+    $userid = $_SESSION["userid"];
+    $query = "SELECT * FROM anggota WHERE id_anggota= '$userid'";
+    $login =  query($query);
+    $user = mysqli_fetch_assoc($login);
+    if(mysqli_num_rows($login) == 0 || !password_verify($_SESSION["pass"], $user["password"])){
+        header("Location: login.php");
+        exit();
+    }
+
+}else  if(isset($_COOKIE["remember"]) && isset($_COOKIE["name"])){
+    $username = $_COOKIE["userid"];
+    $password = $_COOKIE["password"];
+  
+    $query = "SELECT * FROM anggota WHERE id_anggota= '$username'";
+      $login =  query($query);
+    if($login && mysqli_num_rows($login)> 0){
+      $user = mysqli_fetch_assoc($login);
+      if(password_verify($password, $user["password"])){
+        $_SESSION['userid'] = $user['id_anggota'];
+        $_SESSION['pass'] = $user['password'];
+      }
+    }else{
+      header("Location: login.php");
+      exit();
+    }
+  }else
+  {
+      header("Location: login.php");
+      exit();
+  }
+}
 ?>
