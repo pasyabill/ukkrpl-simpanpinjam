@@ -2,6 +2,38 @@
   session_start();
   require("php/connection.php");
   validation();
+  $lamaAngsur;
+  $max;
+  $min;
+
+    $kategori = $_GET["kategori"];
+    switch($kategori) {
+      case 'pelajar' :
+        global $lamaAngsur;
+        global $max;
+        global $min;
+        $min = 500000;
+        $max = 2000000;
+        $lamaAngsur = 4;
+        break;
+      case 'keluarga' :
+        global $lamaAngsur;
+        $lamaAngsur = 8;
+        $min = 500000;
+        $max = 2000000;
+        break;
+      case 'bisnis' :
+        global $lamaAngsur;
+        $lamaAngsur = 12;
+        $min = 500000;
+        $max = 2000000;
+        break;
+      default :
+        global $lamaAngsur;
+        $lamaAngsur = 0;
+        exit();
+    }
+ 
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +49,7 @@
 <body>
     
 <div class="box">
-<form method="post" action="pinjaman_pelajar.php" class="mw-50 needs-validation shadow-lg p-3 h-auto d-inline-block rounded-2" style="width:500px; height: 700px">
+<form method="post" action="pinjaman_diajukan.php" class="mw-50 needs-validation shadow-lg p-3 h-auto d-inline-block rounded-2" style="width:500px; height: 700px">
   <div class="mb-1">
     <div class="title pt-3 pb-3">
         <h3>Pengajuan Pinjaman</h3>
@@ -32,10 +64,10 @@
  <div class="col">
     <label for="exampleInputPassword" class="form-label">Lama Angsuran</label>
     <select required name="angsur" class="form-select" aria-label="Default select example">
-     <option value="1">1 bulan</option>
-     <option value="2">2 Bulan</option>
-     <option value="3">3 Bulan</option>
-     <option value="4">4 Bulan</option>
+    <?php for($i = 1; $i <= $lamaAngsur; $i++) : ?>
+     <option value="<?= $i ?>"><?= $i ?> bulan</option>
+    <?php endfor; ?>
+
     </select>
   </div>
   
@@ -51,7 +83,7 @@
     <label class="form-check-label" for="exampleCheck1">Saya setuju dengan kebijakan bank plecit</label>
   </div>
 <div class="row mb-1">
-  
+  <input type="hidden" name="kategori" value="<?= $kategori ?>" id="">
   <div class="button-group d-flex gap-2">
   <button id="btnsubmit" name="submit" type="submit" class="btn btn-primary">Submit</button>
   </div>
@@ -65,32 +97,26 @@
 
     inputField.addEventListener("change", function() {
         var nilai = parseInt(this.value);
-        if (nilai < 500000) {
-            this.value = 500000;
-        } else if (nilai > 2000000) {
-            this.value = 2000000;
+        var min =  <?= $min ?>;
+        var max =  <?= $max ?>;
+        if (nilai < min) {
+            this.value = min;
+        } else if (nilai > max) {
+            this.value = max;
         }
         
         // Perbarui nilai setiap kali input berubah
         nilai = parseInt(this.value); 
         
         // Perbarui status tombol submit
-        if (nilai >= 500000 && nilai <= 2000000) {
+        if (nilai >= min && nilai <= max) {
             submitButton.disabled = false;
         } else {
             submitButton.disabled = true;
         }
     });
 
-    // Inisialisasi nilai saat pertama kali halaman dimuat
-    var nilai = parseInt(inputField.value);
-    
-    // Perbarui status tombol submit
-    if (nilai >= 500000 && nilai <= 2000000) {
-        submitButton.disabled = false;
-    } else {
-        submitButton.disabled = true;
-    }
+
 </script>
 
 
