@@ -128,7 +128,7 @@
           <p class="card-content">
               Terima kasih telah mendaftar sebagai nasabah PlecitPlus. silahkan login untuk memulai transaksi. 
           </p>
-          <a href="index.php" class="see-more">balek</a>
+          <a href="dashboard_pinjaman.php" class="see-more">balek</a>
       </div>
       <div class="date-box">
           <span class="month">plecit</span>

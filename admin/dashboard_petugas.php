@@ -1,6 +1,6 @@
 
 <?php
-  require("php/connection.php");
+  require("../php/connection.php");
   session_start();
     if(isset($_SESSION["adminid"]) && isset( $_SESSION["adminpass"])){
     $userid = $_SESSION["adminid"];
@@ -43,9 +43,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
-    <link rel="stylesheet" href="css/easion.css">
+    <link rel="stylesheet" href="../css/easion.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script src="js/chart-js-config.js"></script>
+    <script src="../js/chart-js-config.js"></script>
     <title>Pleciplus</title>
 </head>
 <body>
@@ -58,14 +58,14 @@
                 <a href="index.html" class="easion-logo"><i class="fas fa-sun"></i> <span>PleciPlus</span></a>
             </header>
             <nav class="dash-nav-list">
-                <a href="index.php" class="dash-nav-item">
+                <a href="dashboard_petugas.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> Home </a>
                 <a href="nasabah.php" class="dash-nav-item">
                     <i class="fas fa-info ps-3"></i> nasabah </a>
-                <a href="index.html" class="dash-nav-item">
-                    <i class="fas fa-home"></i> pinjaman nasabah </a>
+                <a href="permintaan_pinjaman.php" class="dash-nav-item">
+                    <i class="fas fa-home"></i> Permintaan Pinjaman </a>
                     <a href="index.html" class="dash-nav-item">
-                    <i class="fas fa-home"></i> tabungan nasabah </a>
+                    <i class="fas fa-home"></i> angsuran nasabah  </a>
             </nav>
         </div>
         <div class="dash-app">
@@ -88,7 +88,7 @@
             <main class="dash-content">
                 <div class="container-fluid">
                     <div class="row dash-row">
-                        
+
                       
                     </div>
                     <div class="row">
@@ -113,12 +113,42 @@
                                     <div class="easion-card-icon">
                                         <i class="fas fa-bell"></i>
                                     </div>
-                                    <div class="easion-card-title"> Saldo Koperasi </div>
+                                    <div class="easion-card-title"> Permintaan Pinjaman </div>
                                 </div>
                                 <div class="card-body ">
-                                    <div class="notifications">
-                                      
-                                    </div>
+                                <?php
+                        $query = "SELECT * from pinjaman join anggota on pinjaman.id_anggota = anggota.id_anggota where pinjaman.ket = 'wait'";
+                        $data = query($query);
+                        if(mysqli_num_rows($data) > 0) :
+                            $all = mysqli_fetch_assoc($data);
+                            while($row = mysqli_fetch_assoc($data)) :
+                                ?>
+                              
+                                            <div class="row mb-2 ">
+                                                <div class="col">
+                                                    <?php echo $row['nama_anggota']; ?>
+                                                </div>
+                                                <div class="col">
+                                                    <?php echo $row['nama_pinjaman']; ?>
+                                                </div>
+                                                <div class="col">
+                                                    <?php echo $row['besar_pinjaman']; ?>
+                                                </div>
+                                                <div class="col">
+                                                    <?php echo count(json_decode($row["id_angsuran"])) . "bulan "; ?>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="" class="btn btn-danger">tolak</a>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="" class="btn btn-success">acc</a>
+                                                </div>
+                                            </div>
+                               
+                                <?php
+                                    endwhile;
+                                endif;
+                                ?>
                                 </div>
                             </div>
                         </div>

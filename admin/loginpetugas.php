@@ -1,20 +1,20 @@
 <?php
-require("php/connection.php");
+require("../php/connection.php");
 session_start();
 
-  if(isset($_COOKIE["remember"])){
-    $userid = $_COOKIE["userid"];
-    $password = $_COOKIE["password"];
+  if(isset($_COOKIE["rememberadmin"])){
+    $userid = $_COOKIE["adminid"];
+    $password = $_COOKIE["adminpassword"];
 
-    $query = "SELECT * FROM anggota WHERE id_anggota= '$userid'";
+    $query = "SELECT * FROM petugas_koperasi WHERE id_petugas= '$userid'";
     $login =  query($query);
     if($login && mysqli_num_rows($login)> 0){
       $user = mysqli_fetch_assoc($login);
       if(password_verify($password, $user["password"])){
         session_start();
-        $_SESSION['userid'] = $user['id_anggota'];
-        $_SESSION['pass'] = $password;
-        header("Location: dashboard.php");
+        $_SESSION['adminid'] = $user['id_petugas'];
+        $_SESSION['adminpass'] = $password;
+        header("Location: dashboard_petugas.php");
         exit();
       }
     }
@@ -24,28 +24,28 @@ session_start();
 
     $password = $_POST["password"];
 
-    $query = "SELECT * FROM anggota WHERE nama= '$nama'";
+    $query = "SELECT * FROM petugas_koperasi WHERE nama= '$nama'";
     $login =  query($query);
 
     if($login && mysqli_num_rows($login)> 0){
       $user = mysqli_fetch_assoc($login);
       if(password_verify($password, $user["password"])){
-        $_SESSION['userid'] = $user['id_anggota'];
-        $_SESSION['pass'] = $password;
+        $_SESSION['adminid'] = $user['id_petugas'];
+        $_SESSION['adminpass'] = $password;
         if($_POST["remember"]){
-          setcookie("remember", "true", time() + (86400 * 30), "/");
-          setcookie("userid", $user["id_anggota"], time() + (86400 * 30), "/");
-          setcookie("password", $password, time() + (86400 * 30), "/");
+          setcookie("rememberadmin", "true", time() + (86400 * 30), "/");
+          setcookie("adminid", $user["id_petugas"], time() + (86400 * 30), "/");
+          setcookie("adminpassword", $password, time() + (86400 * 30), "/");
 
         }
-        header("Location: dashboard.php");
+        header("Location: dashboard_petugas.php");
         exit();
       }else{
-        header("Location: login.php?error=password_incorrect");
+        header("Location: loginpetugas.php?error=password_incorrect");
         exit();
       }
     }else{
-      header("Location: login.php?error=user_not_found");
+      header("Location: loginpetugas.php?error=user_not_found");
       exit();
     }
   }
@@ -69,7 +69,7 @@ session_start();
 <form method="post" action="" class="mw-50 shadow-lg p-3 h-auto d-inline-block rounded-2" style="width: 400px; height: 600px">
   <div class="mb-3">
     <div class="title pt-3 pb-3">
-        <h3>Login Plecit</h3>
+        <h3>Login Petugas Plecit</h3>
     </div>
     <label for="exampleInputUsername" class="form-label">Username</label>
     <input name="username" required  type="text" class="form-control" id="exampleInputUsername" aria-describedby="username">
@@ -95,7 +95,7 @@ session_start();
     <label class="form-check-label" for="exampleCheck1">Ingat Saya</label>
   </div>
   <div class="button-group d-flex gap-2">
-  <button name="submit" type="submit" class="btn btn-primary">Submit</button><a href="Register.php" class="btn btn-primary">Daftar</a>
+  <button name="submit" type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
     

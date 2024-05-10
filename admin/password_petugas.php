@@ -1,5 +1,5 @@
 <?php
- require("php/connection.php");
+ require("../php/connection.php");
  if(count($_POST) >= 7){
    if(isset($_POST['submitpass'])){
   if($_POST["password"] == $_POST["p2"]){

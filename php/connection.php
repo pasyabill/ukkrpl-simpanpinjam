@@ -54,4 +54,39 @@ function validation(){
       exit();
   }
 }
+
+
+function validationAdmin(){
+  if(isset($_SESSION["adminid"]) && isset( $_SESSION["adminpass"])){
+    $userid = $_SESSION["adminid"];
+    $query = "SELECT * FROM petugas_koperasi WHERE id_petugas= '$userid'";
+    $login =  query($query);
+    $user = mysqli_fetch_assoc($login);
+    if(mysqli_num_rows($login) == 0 || !password_verify($_SESSION["adminpass"], $user["password"])){
+        header("Location: loginpetugas.php");
+        exit();
+    }
+
+}else  if(isset($_COOKIE["rememberadmin"]) && isset($_COOKIE["adminname"])){
+    $username = $_COOKIE["adminid"];
+    $password = $_COOKIE["adminpassword"];
+  
+    $query = "SELECT * FROM petugas_koperasi WHERE id_petugas= '$username'";
+      $login =  query($query);
+    if($login && mysqli_num_rows($login)> 0){
+      $user = mysqli_fetch_assoc($login);
+      if(password_verify($password, $user["password"])){
+        $_SESSION['adminid'] = $user['id_petugas'];
+        $_SESSION['adminpass'] = $user['password'];
+      }
+    }else{
+      header("Location: loginpetugas.php");
+      exit();
+    }
+  }else
+  {
+      header("Location: loginpetugas.php");
+      exit();
+  }
+}
 ?>

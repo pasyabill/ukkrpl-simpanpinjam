@@ -1,6 +1,6 @@
 
 <?php
-  require("php/connection.php");
+  require("../php/connection.php");
   session_start();
     if(isset($_SESSION["adminid"]) && isset( $_SESSION["adminpass"])){
     $userid = $_SESSION["adminid"];

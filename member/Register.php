@@ -1,5 +1,5 @@
 <?php
-  require("php/connection.php");
+  require("../php/connection.php");
   if(isset($_COOKIE["remember"]) && isset($_COOKIE["name"])){
   $username = $_COOKIE["name"];
   $password = $_COOKIE["password"];

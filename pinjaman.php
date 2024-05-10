@@ -172,7 +172,7 @@
 								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 2 juta</li>
 								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 200.000</li>
 							</ul>
-							<a href="pengajuan_pinjaman.php?kategori=pelajar" class="table-bottom btn">
+							<a href="member/pengajuan_pinjaman.php?kategori=pelajar" class="table-bottom btn">
 								pinjaman pelajar
 							</a>
 							<!-- Table Bottom -->
@@ -197,10 +197,9 @@
 								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 10 juta</li>
 								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 1000.000</li>
 							</ul>
-							<form class="table-bottom" action="pengajuan_pinjaman.php"  method="Get">
-								<input type="hidden" value="keluarga">
-								<button type="submit" class="btn" >Ajukan Pinjaman</button>
-							</form>
+							<a href="member/pengajuan_pinjaman.php?kategori=keluarga" class="table-bottom btn">
+								pinjaman pelajar
+							</a>
 							<!-- Table Bottom -->
 						</div>
 					</div>
@@ -223,9 +222,9 @@
 								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 20 juta</li>
 								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 2000.000</li>
 							</ul>
-							<form class="table-bottom" action="pengajuan_pinjaman.php?kategori=bisnis" method="POST">
-								<button type="submit" class="btn" href=>Ajukan Pinjaman</button>
-							</form>
+							<a href="member/pengajuan_pinjaman.php?kategori=bisnis" class="table-bottom btn">
+								pinjaman pelajar
+							</a>
 							<!-- Table Bottom -->
 						</div>
 					</div>
