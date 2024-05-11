@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 09, 2024 at 02:36 PM
+-- Generation Time: May 11, 2024 at 04:13 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -65,9 +65,32 @@ CREATE TABLE IF NOT EXISTS `angsuran` (
   `tgl_pembayaran` date NOT NULL,
   `angsuran_ke` int NOT NULL,
   `besar_angsuran` int NOT NULL,
-  `ket` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `ket` enum('belum','lunas') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'belum',
   PRIMARY KEY (`id_angsuran`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `angsuran`
+--
+
+INSERT INTO `angsuran` (`id_angsuran`, `id_kategori`, `id_anggota`, `tgl_pembayaran`, `angsuran_ke`, `besar_angsuran`, `ket`) VALUES
+('', 0, 0, '0000-00-00', 1, 0, 'belum'),
+('663e430d0eb47', 1, 6634, '0000-00-00', 1, 0, 'belum'),
+('663f84236474a', 1, 6634, '0000-00-00', 1, 0, 'belum'),
+('663f8444e2a07', 1, 6634, '0000-00-00', 1, 0, 'belum'),
+('663f8b12d0bb4', 1, 6634, '0000-00-00', 1, 0, 'belum'),
+('663f8b12d0bb5', 1, 6634, '0000-00-00', 2, 0, 'belum'),
+('663f8b12d0bb6', 1, 6634, '0000-00-00', 3, 0, 'belum'),
+('663f8b12d0bb7', 1, 6634, '0000-00-00', 4, 0, 'belum'),
+('663f938f59025', 2, 6634, '0000-00-00', 1, 0, 'belum'),
+('663f942b4db2b', 2, 6634, '0000-00-00', 1, 0, 'belum'),
+('663f942b4db2d', 2, 6634, '0000-00-00', 2, 0, 'belum'),
+('663f942b4db2e', 2, 6634, '0000-00-00', 3, 0, 'belum'),
+('663f942b4db2f', 2, 6634, '0000-00-00', 4, 0, 'belum'),
+('663f942b4db30', 2, 6634, '0000-00-00', 5, 0, 'belum'),
+('663f942b4db31', 2, 6634, '0000-00-00', 6, 0, 'belum'),
+('663f942b4db32', 2, 6634, '0000-00-00', 7, 0, 'belum'),
+('663f942b4db33', 2, 6634, '0000-00-00', 8, 0, 'belum');
 
 -- --------------------------------------------------------
 
@@ -83,7 +106,30 @@ CREATE TABLE IF NOT EXISTS `detail_angsuran` (
   `besar_angsuran` int NOT NULL,
   `ket` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detail_angsuran`
+--
+
+INSERT INTO `detail_angsuran` (`id`, `id_angsuran`, `tgl_jatuh_tempo`, `besar_angsuran`, `ket`) VALUES
+(65, '663e430d0eb47', '2024-06-11', 550000, ''),
+(66, '', '2024-06-11', 0, ''),
+(67, '663f8b12d0bb4', '2024-06-11', 412500, ''),
+(68, '663f8b12d0bb5', '2024-07-11', 412500, ''),
+(69, '663f8b12d0bb6', '2024-08-11', 412500, ''),
+(70, '663f8b12d0bb7', '2024-09-11', 412500, ''),
+(71, '663f8444e2a07', '2024-06-11', 2200000, ''),
+(72, '663f942b4db2b', '2024-06-11', 137500, ''),
+(73, '663f942b4db2d', '2024-07-11', 137500, ''),
+(74, '663f942b4db2e', '2024-08-11', 137500, ''),
+(75, '663f942b4db2f', '2024-09-11', 137500, ''),
+(76, '663f942b4db30', '2024-10-11', 137500, ''),
+(77, '663f942b4db31', '2024-11-11', 137500, ''),
+(78, '663f942b4db32', '2024-12-11', 137500, ''),
+(79, '663f942b4db33', '2025-01-11', 137500, ''),
+(80, '663f938f59025', '2024-06-11', 550000, ''),
+(81, '663f84236474a', '2024-06-11', 550000, '');
 
 -- --------------------------------------------------------
 
@@ -104,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `kategori_pinjaman` (
 
 INSERT INTO `kategori_pinjaman` (`id_kategori_pinjaman`, `nama_pinjaman`) VALUES
 (1, 'pelajar'),
-(2, 'ekonomi'),
+(2, 'keluarga'),
 (3, 'bisnis');
 
 -- --------------------------------------------------------
@@ -151,9 +197,24 @@ CREATE TABLE IF NOT EXISTS `pinjaman` (
   `tgl_pinjaman` date DEFAULT NULL,
   `tgl_pelunasan` date DEFAULT NULL,
   `id_angsuran` json NOT NULL,
-  `ket` enum('no','yes') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'no',
+  `ket` enum('diminta','ditolak','diterima','dipinjamkan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'diminta',
   PRIMARY KEY (`id_pinjaman`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pinjaman`
+--
+
+INSERT INTO `pinjaman` (`id_pinjaman`, `nama_pinjaman`, `id_anggota`, `besar_pinjaman`, `tgl_pengajuan_pinjaman`, `tgl_acc_peminjaman`, `tgl_pinjaman`, `tgl_pelunasan`, `id_angsuran`, `ket`) VALUES
+('663e430d0eb39', 'pelajar', '6634b9974f884', 500000, '2024-05-10', '0000-00-00', '2024-05-11', NULL, '\"663e430d0eb47\"', 'dipinjamkan'),
+('663f84236473d', 'pelajar', '6634b9974f884', 500000, '2024-05-11', '2024-05-11', '2024-05-11', NULL, '\"663f84236474a\"', 'dipinjamkan'),
+('663f8444e29fd', 'pelajar', '6634b9974f884', 2000000, '2024-05-11', '2024-05-11', '2024-05-11', NULL, '\"663f8444e2a07\"', 'dipinjamkan'),
+('663f8b12d0baa', 'pelajar', '6634b9974f884', 1500000, '2024-05-11', '2024-05-11', '2024-05-11', NULL, '[\"663f8b12d0bb4\", \"663f8b12d0bb5\", \"663f8b12d0bb6\", \"663f8b12d0bb7\"]', 'dipinjamkan'),
+('663f938f59015', 'keluarga', '6634b9974f884', 500000, '2024-05-11', '2024-05-11', '2024-05-11', NULL, '[\"663f938f59025\"]', 'dipinjamkan'),
+('663f942b4db1f', 'keluarga', '6634b9974f884', 1000000, '2024-05-11', '2024-05-11', '2024-05-11', NULL, '[\"663f942b4db2b\", \"663f942b4db2d\", \"663f942b4db2e\", \"663f942b4db2f\", \"663f942b4db30\", \"663f942b4db31\", \"663f942b4db32\", \"663f942b4db33\"]', 'dipinjamkan'),
+('663f9845baa1b', 'pelajar', '6634b9974f884', 1500000, '2024-05-11', NULL, NULL, NULL, '[\"663f9845baa26\", \"663f9845baa27\"]', 'ditolak'),
+('663f98515060b', 'pelajar', '6634b9974f884', 500000, '2024-05-11', NULL, NULL, NULL, '[\"663f985150617\", \"663f985150618\"]', 'diminta'),
+('663f9856e5b88', 'pelajar', '6634b9974f884', 500000, '2024-05-11', '2024-05-11', NULL, NULL, '[\"663f9856e5b92\", \"663f9856e5b94\", \"663f9856e5b95\", \"663f9856e5b96\"]', 'diterima');
 
 -- --------------------------------------------------------
 
