@@ -1,16 +1,23 @@
 <?php
 require("connection.php");
-
+function isJson($string) {
+    json_decode($string);
+    return (json_last_error() == JSON_ERROR_NONE);
+}
 function terimaPinjaman($idPinjaman){
+    echo $idPinjaman;
     $raw_pinjaman = query("SELECT *
     FROM pinjaman
-    JOIN kategori_pinjaman ON pinjaman.nama_pinjaman = kategori_pinjaman.nama_pinjaman;
+    JOIN kategori_pinjaman ON pinjaman.nama_pinjaman = kategori_pinjaman.nama_pinjaman 
+    where pinjaman.id_pinjaman = '$idPinjaman';
     ");
+    var_dump($raw_pinjaman);
     $data_pinjaman = mysqli_fetch_assoc($raw_pinjaman);
-    $id_angsur_raw = json_decode($data_pinjaman["id_angsuran"]) ;
+    var_dump($data_pinjaman);
+        // Periksa apakah $id_angsur_raw adalah array
+        $id_angsur_raw = json_decode($data_pinjaman["id_angsuran"]) ;
 
-    // Periksa apakah $id_angsur_raw adalah array
-    if (is_array($id_angsur_raw)) {
+    if (isJson($data_pinjaman["id_angsuran"]) && is_array($data_pinjaman['id_angsuran'])) {
         $lamaAngsur = count($id_angsur_raw);
     } else {
         $lamaAngsur = 1; // Jika hanya satu elemen, maka tetapkan $lamaAngsur menjadi 1
@@ -26,8 +33,6 @@ function terimaPinjaman($idPinjaman){
         $id_angsuran = is_array($id_angsur_raw) ? $id_angsur_raw[$i] : $id_angsur_raw;
     
         $jatuhtempo = date("Y-m-d", strtotime("+".($i+1)." months"));
-        $idpinjam = uniqid();
-        
         $biayaCicil = ($nominal / $lamaAngsur);
         $biayaCicil = $biayaCicil + ($biayaCicil * 0.10);
     

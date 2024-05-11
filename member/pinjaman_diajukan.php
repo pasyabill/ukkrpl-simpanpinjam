@@ -43,7 +43,7 @@ if(isset($_POST)){
     $idpinjam = uniqid();
     $tanggalpengajuanpinjam = date("Y-m-d");
     for($i = 0; $i < $lamaCicil; $i++ ){
-      $id_angsur = uniqid();
+      $id_angsur[] = uniqid();
     }
 
     $json_data = json_encode($id_angsur);
