@@ -17,7 +17,7 @@ function terimaPinjaman($idPinjaman){
         // Periksa apakah $id_angsur_raw adalah array
         $id_angsur_raw = json_decode($data_pinjaman["id_angsuran"]) ;
 
-    if (isJson($data_pinjaman["id_angsuran"]) && is_array($data_pinjaman['id_angsuran'])) {
+    if (isJson($data_pinjaman["id_angsuran"]) && is_array($id_angsur_raw)) {
         $lamaAngsur = count($id_angsur_raw);
     } else {
         $lamaAngsur = 1; // Jika hanya satu elemen, maka tetapkan $lamaAngsur menjadi 1
