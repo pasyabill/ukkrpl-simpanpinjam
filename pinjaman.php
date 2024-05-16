@@ -187,7 +187,7 @@
 								<div class="icon">
 								<i class="icofont-home"></i>
 								</div>
-								<h4 class="title">Pinjaman KPR</h4>
+								<h4 class="title">Pinjaman Keluarga</h4>
 								
 							</div>
 							<!-- Table List -->
@@ -198,7 +198,7 @@
 								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 1000.000</li>
 							</ul>
 							<a href="member/pengajuan_pinjaman.php?kategori=keluarga" class="table-bottom btn">
-								pinjaman pelajar
+								pinjaman keluarga
 							</a>
 							<!-- Table Bottom -->
 						</div>
@@ -223,7 +223,7 @@
 								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 2000.000</li>
 							</ul>
 							<a href="member/pengajuan_pinjaman.php?kategori=bisnis" class="table-bottom btn">
-								pinjaman pelajar
+								pinjaman bisnis
 							</a>
 							<!-- Table Bottom -->
 						</div>
