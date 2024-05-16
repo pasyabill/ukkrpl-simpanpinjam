@@ -1,10 +1,17 @@
 <?php
  require("../php/connection.php");
+ $nama = $_POST["nama"];
+ $nameused = query("Select * from anggota where nama = '$nama'");
+ if(mysqli_num_rows($nameused) > 0){
+   header("Location: register.php?invalid=true");
+   exit();
+ }
  if(count($_POST) >= 7){
    if(isset($_POST['submitpass'])){
   if($_POST["password"] == $_POST["p2"]){
-    $id = uniqid();
     $nama = $_POST["nama"];
+   
+      $id = uniqid();
     $alamat = $_POST["alamat"];
     $tgllhr = $_POST["tgllhr"];
     $tmplhr = $_POST["tmplhr"];
@@ -18,15 +25,17 @@
     if($add){
       header(("Location: registerSucces.php"));
     }
-
   } else{
       header("Location: password.php?invalid=true");
+      exit();
+
      }
    }
 
  }else{
-  var_dump($_POST);
-  // header("Location: register.php");
+   header("Location: register.php");
+   exit();
+
  }
 
 
@@ -52,14 +61,14 @@
         <h3>Buat Password</h3>
     </div>
     <label for="exampleInputUsername" class="form-label">Password</label>
-    <input name="password" require type="password" class="form-control" id="exampleInputUsername" aria-describedby="username">
+    <input name="password" required minlength="8" type="password" class="form-control" id="exampleInputUsername" aria-describedby="username">
     <div class="invalid-feedback">
         Kata sandi harus kurdin
       </div>
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-    <input name="p2" require type="password" class="form-control" id="exampleInputPassword1">
+    <input name="p2" required type="password" class="form-control" id="exampleInputPassword1">
   </div>
   <?php if(count($_POST) >= 7 ) : ?>
   <input type="hidden" name="nama" value="<?php echo($_POST['nama']); ?>">

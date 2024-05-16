@@ -3,7 +3,7 @@
   if(isset($_COOKIE["remember"]) && isset($_COOKIE["name"])){
   $username = $_COOKIE["name"];
   $password = $_COOKIE["password"];
-
+  $invalid = $_GET["invalid"];
   $query = "SELECT * FROM anggota WHERE nama= '$username'";
     $login =  query($query);
   if($login && mysqli_num_rows($login)> 0){
@@ -77,7 +77,14 @@
     </select>
   </div>
 </div>
-   
+<?php if(isset($_GET["invalid"]) && $_GET["invalid"] == "true") : ?>
+  <div class="alert alert-danger" role="alert">
+    nama pengguna sudah digunakan.
+  </div>
+
+<?php
+endif
+?>
 <div class="row mb-1">
   <div class="col">
     <label  for="exampleInputPassword1" class="form-label">Keterangan</label>
