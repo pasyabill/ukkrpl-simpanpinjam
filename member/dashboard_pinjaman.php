@@ -1,5 +1,6 @@
 <?php
 require("../php/connection.php");
+session_start();
 validation();
 $type = isset($_GET["type"]) ? $_GET["type"] : "";
 $search = isset($_GET["search"]) ? $_GET["search"] : "";
@@ -224,7 +225,7 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                       if (!empty($type)) {
                                         $query .= "and pinjaman.ket = '$type'";
                                     }else{
-                                        $query .= "and pinjaman.ket = 'menunggu'";
+                                        $query .= "and pinjaman.ket = 'diminta'";
                                     }
                 
                                     // Jika $_GET["search"] tersedia, tambahkan kondisi ke dalam query

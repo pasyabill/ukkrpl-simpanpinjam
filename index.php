@@ -129,7 +129,7 @@
 							<?php else : ?>
 								<div class="col-lg-2 col-12">
 								<div class="get-quote ms-5">
-									<a href="dashboard.php" class="btn"><?= $user["nama"]?></a>
+									<a href="member/dashboard.php" class="btn"><?= $user["nama"]?></a>
 								</div>
 							</div>
 							<?php endif ?>

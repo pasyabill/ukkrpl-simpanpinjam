@@ -1,6 +1,7 @@
 
 <?php
   require("../php/connection.php");
+  session_start();
   validation();
 ?>
 

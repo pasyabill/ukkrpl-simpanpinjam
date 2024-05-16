@@ -220,12 +220,27 @@
                                     </form>
                                 </div>
                                 <div class="card-body text-center easion-card-body-chart">
+                                <div  class="row text-center drop_content drop_content_header">
+                                                <div class="col"><?php
+                                                    if($type != 'dipinjamkan'){
+                                                        echo 'tgl pengajuan';
+                                                    }else{
+                                                        echo 'tgl peminjaman';
+                                                    }
+                                                ?></div>
+                                                <div class="col">Nama</div>
+                                                <div class="col">kategori</div>
+                                                <div class="col">Nominal</div>
+                                                <div class="col">status</div>
+                                                <div class="col">lama Angsuran</div>
+                                                <div class="col">Aksi</div>
+                                            </div>
                                     <?php
                                       $query = "SELECT pinjaman.*, anggota.*, anggota.nama AS nama_anggota, pinjaman.ket AS pinjaman_ket FROM pinjaman JOIN anggota ON pinjaman.id_anggota = anggota.id_anggota ";
                                       if (!empty($type)) {
                                         $query .= "WHERE pinjaman.ket = '$type'";
                                     }else{
-                                        $query .= "WHERE pinjaman.ket = 'menunggu'";
+                                        $query .= "WHERE pinjaman.ket = 'diminta'";
                                     }
                 
                                     // Jika $_GET["search"] tersedia, tambahkan kondisi ke dalam query
@@ -257,7 +272,13 @@
                                     <div class="text-center col">
                                         <div class=" topContent">
                                             <div class="row angsur_row_parent text-center">
-                                                <div class="col"><?php echo $row['tgl_pengajuan_pinjaman']; ?></div>
+                                                <div class="col"><?php
+                                                    if($type != 'dipinjamkan'){
+                                                        echo $row['tgl_pengajuan_pinjaman'];
+                                                    }else{
+                                                        echo $row['tgl_acc_peminjaman'];
+                                                    }
+                                                ?></div>
                                                 <div class="col"><?php echo $row['nama']; ?></div>
                                                 <div class="col"><?php echo $row['nama_pinjaman']; ?></div>
                                                 <div class="col"><?php echo $row['besar_pinjaman']; ?></div>
@@ -341,12 +362,12 @@
                                             <?php
                                                 while($rows = mysqli_fetch_assoc($data2)) :
                                                         ?>
-                                            <div  class="row text-center drop_content">
-                                                <div class="col"><?= $rows['tgl_jatuh_tempo'] ?></div>
-                                                <div class="col"><?= $rows['id_angsuran']?></div>
-                                                <div class="col"><?= $rows['besar_angsuran']?></div>
-                                                <div class="col"><?= $rows['angsuran_ke']?></div>
-                                                <div class="col">
+                                            <div  class="row text-center drop_content mb-2">
+                                                <div class="col mb-2"><?= $rows['tgl_jatuh_tempo'] ?></div>
+                                                <div class="col mb-2"><?= $rows['id_angsuran']?></div>
+                                                <div class="col mb-2"><?= $rows['besar_angsuran']?></div>
+                                                <div class="col mb-2"><?= $rows['angsuran_ke']?></div>
+                                                <div class="col mb-2">
                                                     <?php
                                                 if($rows['tgl_pembayaran'] != null){
                                                     echo $rows['tgl_pembayaran'];
