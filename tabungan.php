@@ -142,96 +142,79 @@
 		<!-- End Header Area -->
 		
 			<!-- Pricing Table -->
-			<section class="pricing-table section">
+            <section class="appointment">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-title">
-							<h2>Jenis Pinjaman</h2>
+							<h2>Menambah Simpanan Anggota</h2>
 							<img src="img/section-img.png" alt="#">
-							<p>kami menyediakan jenis pinjaman yang dapat anda pilih sesuai kebutuhan anda</p>
+							<p>Isikan data dengan sesuai</p>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-									<i class="icofont-book"></i>
+					<div class="col-lg-6 col-md-12 col-12">
+						<form class="form" action="#">
+							<div class="row">
+								<div class="col-lg-12 col-md-6 col-12">
+                                    <p>Nama Simpanan</p>
+									<div class="form-group">
+										<input name="name" type="text" placeholder="Masukkan Keterangan Nama Simpanan">
+									</div>
 								</div>
-								<h4 class="title">Pinjaman Pelajar</h4>
-								
+								<div class="col-lg-6 col-md-6 col-12">
+                                    <p>Id Anggota</p>
+									<div class="form-group">
+										<input name="name" type="text" placeholder="Masukkan Id Anggota">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+                                    <p>Tanggal Simpanan</p>
+									<div class="form-group">
+										<input name="" type="date">
+									</div>
+								</div>
+                                <div class="col-lg-12 col-md-6 col-12">
+                                    <p>Nominal Simpanan</p>
+									<div class="form-group">
+										<input name="" type="text" placeholder="Masukan Nominal Simpanan">
+									</div>
+								</div>
+								<!-- <div class="col-lg-12 col-md-6 col-12">
+									<div class="form-group">
+										<div class="nice-select form-control wide" tabindex="0"><span class="current">Department</span>
+											<ul class="list">
+												<li data-value="1" class="option selected ">Department</li>
+												<li data-value="2" class="option">Cardiac Clinic</li>
+												<li data-value="3" class="option">Neurology</li>
+												<li data-value="4" class="option">Dentistry</li>
+												<li data-value="5" class="option">Gastroenterology</li>
+											</ul>
+										</div>
+									</div>
+								</div> -->
 							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 5%</li>
-								<li><i class="icofont icofont-ui-check"></i>Mulai dari 500.000	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 2 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 200.000</li>
-							</ul>
-							<a href="member/pengajuan_pinjaman.php?kategori=pelajar" class="table-bottom btn">
-								mulai pinjaman pelajar
-							</a>
-							<!-- Table Bottom -->
+							<div class="row">
+								<div class="col-lg-5 col-md-4 col-12">
+									<div class="form-group">
+										<div class="button">
+											<button type="submit" class="btn">Tambah Tabungan Anggota</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-lg-6 col-md-12 ">
+						<div class="appointment-image">
+							<img src="img/contact-img.png" alt="#">
 						</div>
 					</div>
-					<!-- End Single Table-->
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-								<i class="icofont-home"></i>
-								</div>
-								<h4 class="title">Pinjaman Keluarga</h4>
-								
-							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 7%</li>
-								<li><i class="icofont icofont-ui-check"></i>Mulai dari 1 juta	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 10 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 1000.000</li>
-							</ul>
-							<a href="member/pengajuan_pinjaman.php?kategori=keluarga" class="table-bottom btn">
-								mulai pinjaman keluarga
-							</a>
-							<!-- Table Bottom -->
-						</div>
-					</div>
-					<!-- End Single Table-->
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-								<i class="icofont-cart"></i>
-								</div>
-								<h4 class="title">Pinjaman Bisnis</h4>
-								
-							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-							<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 10%</li>
-								<li><i class="icofont icofont-ui-check"></i>Mulai dari 5 juta	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 20 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 2000.000</li>
-							</ul>
-							<a href="member/pengajuan_pinjaman.php?kategori=bisnis" class="table-bottom btn">
-								mulai pinjaman bisnis
-							</a>
-							<!-- Table Bottom -->
-						</div>
-					</div>
-					<!-- End Single Table-->
-				</div>	
-			</div>	
-		</section>	
+				</div>
+			</div>
+		</section>
+
 		<!-- /End Newsletter Area -->
 		
 		<!-- Footer Area -->

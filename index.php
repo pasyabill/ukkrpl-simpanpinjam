@@ -97,7 +97,7 @@
 							<div class=" logobox col-lg-3 col-md-3 col-12">
 								<!-- Start Logo -->
 								<div class="logo pt-2">
-									<a href="index.html">PLECIT<span>PLUS</span></a>
+									<a href="index.php">PLECIT<span>PLUS</span></a>
 								</div>
 								<!-- End Logo -->
 								<!-- Mobile Nav -->
@@ -110,7 +110,7 @@
 									<nav class="navigation">
 										<ul class="nav menu">
 											<li><a href="index.php">Home </a></li>
-											<li><a href="#">Tabungan</a></li>
+											<li><a href="tabungan.php">Tabungan</a></li>
 											<li><a href="pinjaman.php">Pinjaman</a></li>
 											
 											<li><a href="contact.html">Contact Us</a></li>
