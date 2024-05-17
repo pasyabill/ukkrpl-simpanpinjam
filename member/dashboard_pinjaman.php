@@ -151,17 +151,50 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                     </div>
                 </div>
             </header>
+            <?php 
+                $userid = $_SESSION["userid"];
+                $datass = query("SELECT angsuran.*, detail_angsuran.* 
+                                 FROM angsuran 
+                                 JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
+                                 WHERE angsuran.id_anggota = '$userid'");
+
+            // Iterasi melalui setiap elemen dalam array data
+          
+                if (mysqli_num_rows($datass) > 0) {
+                    $totalhutang = 0;
+                    $closest_due_date = null;
+            
+                    // Fetch all results into an associative array
+                    while ($row = mysqli_fetch_assoc($datass)) {
+                        // Menambahkan setiap baris ke dalam total hutang atau lakukan operasi lainnya
+                        $totalhutang += $row['besar_angsuran']; // Misalnya menambah total hutang
+                        $hutang = formatNumber($totalhutang);
+                        $current_due_date = new DateTime($row['tgl_jatuh_tempo']);
+                    
+                        // Perbarui $closest_due_date jika belum diatur atau jika $current_due_date lebih dekat daripada $closest_due_date
+                        if ($closest_due_date === null || $current_due_date < $closest_due_date) {
+                            $closest_due_date = $current_due_date;
+                        }
+                    }
+                    $closest_due_date_string = $closest_due_date->format('Y-m-d');
+                    
+                  
+                } else{
+                    $hutang = "Rp.0";
+                    $closest_due_date_string = "-";
+                }
+            ?>
             <main class="dash-content">
                 <div class="container-fluid">
                     <div class="row ">
 
                         <div class="col-xl-6 d-inline-block p-3 mb-2 bg-success-subtle text-success-emphasis">
-                            <h4>Total Pinjaman</h4>
-                            <h2>Rp. 3.000.000,00 </h2>
+                            <h4>Total Pinjaman<small><small>(+bunga)</small></small></h4>
+                            <h2><?= $hutang ?> </h2>
                         </div>
                         <div class="col-xl-6 d-inline-block ms-5 p-3 mb-2 bg-success-subtle text-success-emphasis">
                             <h4>Jatuh Tempo <small><small>(terdekat)</small></small></h4>
-                            <h2>2024/4/4 </h2>
+                            <h2><?= $closest_due_date_string ?></h2>
 
                         </div>
 

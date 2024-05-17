@@ -11,7 +11,11 @@ $conn = mysqli_connect($host, $username, $password, $dbname);
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-
+function formatNumber($number) {
+  // Format angka dengan ribuan dipisahkan oleh titik dan dua desimal
+  $rr= number_format($number, 2, ',', '.');
+  return "Rp.".$rr;
+}
 function query($sql) {
     global $conn;
     $result = mysqli_query($conn, $sql);
