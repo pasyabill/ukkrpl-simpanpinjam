@@ -142,96 +142,52 @@
 		<!-- End Header Area -->
 		
 			<!-- Pricing Table -->
+            
 			<section class="pricing-table section">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-title">
-							<h2>Jenis Pinjaman</h2>
+							<h2>Simpanan Pelajar</h2>
 							<img src="img/section-img.png" alt="#">
-							<p>kami menyediakan jenis pinjaman yang dapat anda pilih sesuai kebutuhan anda</p>
+							<p>kami menyediakan SimPel yang dapat mendukung perencanaan keuangan pelajar</p>
+                            <p></p>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-									<i class="icofont-book"></i>
-								</div>
-								<h4 class="title">Pinjaman Pelajar</h4>
-								
-							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 5%</li>
-								<li><i class="icofont icofont-ui-check"></i>Mulai dari 500.000	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 2 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 200.000</li>
-							</ul>
-							<a href="member/pengajuan_pinjaman.php?kategori=pelajar" class="table-bottom btn">
-								mulai pinjaman pelajar
-							</a>
-							<!-- Table Bottom -->
-						</div>
-					</div>
-					<!-- End Single Table-->
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-								<i class="icofont-home"></i>
-								</div>
-								<h4 class="title">Pinjaman Keluarga</h4>
-								
-							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 7%</li>
-								<li><i class="icofont icofont-ui-check"></i>Mulai dari 1 juta	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 10 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 1000.000</li>
-							</ul>
-							<a href="member/pengajuan_pinjaman.php?kategori=keluarga" class="table-bottom btn">
-								mulai pinjaman keluarga
-							</a>
-							<!-- Table Bottom -->
-						</div>
-					</div>
-					<!-- End Single Table-->
-					<!-- Single Table -->
-					<div class="col-lg-4 col-md-12 col-12">
-						<div class="single-table">
-							<!-- Table Head -->
-							<div class="table-head">
-								<div class="icon">
-								<i class="icofont-cart"></i>
-								</div>
-								<h4 class="title">Pinjaman Bisnis</h4>
-								
-							</div>
-							<!-- Table List -->
-							<ul class="table-list">
-							<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 10%</li>
-								<li><i class="icofont icofont-ui-check"></i>Mulai dari 5 juta	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 20 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 2000.000</li>
-							</ul>
-							<a href="member/pengajuan_pinjaman.php?kategori=bisnis" class="table-bottom btn">
-								mulai pinjaman bisnis
-							</a>
-							<!-- Table Bottom -->
-						</div>
-					</div>
-					<!-- End Single Table-->
-				</div>	
 			</div>	
+            <br>
+            
 		</section>	
+        <section class="schedule">
+			<div class="container">
+				<div class="schedule-inner">
+					<div class="row">
+						<div class="col-lg-12 ">
+							<!-- single-schedule -->
+							<div class="single-schedule first">
+								<div class="inner">
+									<div class="icon">
+										<i class="fa fa-ambulance"></i>
+									</div>
+									<div class="single-content">
+										<span>SimPel</span>
+										<h4>SIMPANAN PELAJAR</h4>
+										<p>“Tabungan Simpanan Pelajar di koperasi memberikan kemudahan bagi pelajar untuk menabung 
+                                            secara rutin dan sesuai keinginan, serta mendukung perencanaan keuangan mereka.”</p>
+                                        <p>Pelajar dapat menyisihkan sebagian uang saku yang dapat membantu dalam membangun disiplin keuangan.
+                                        
+                                            Dengan waktu yang santai, Pelajar dapat menyetorkan tanpa minimum nominal
+                                        </p>
+										<a href="#">Mulai menabung<i class="fa fa-long-arrow-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		<!-- /End Newsletter Area -->
 		
 		<!-- Footer Area -->

@@ -97,7 +97,7 @@
 							<div class=" logobox col-lg-3 col-md-3 col-12">
 								<!-- Start Logo -->
 								<div class="logo pt-2">
-									<a href="index.html">PLECIT<span>PLUS</span></a>
+									<a href="index.php">PLECIT<span>PLUS</span></a>
 								</div>
 								<!-- End Logo -->
 								<!-- Mobile Nav -->
@@ -110,7 +110,7 @@
 									<nav class="navigation">
 										<ul class="nav menu">
 											<li><a href="index.php">Home </a></li>
-											<li><a href="#">Tabungan</a></li>
+											<li><a href="simpanan.php">Simpanan</a></li>
 											<li><a href="pinjaman.php">Pinjaman</a></li>
 											
 											<li><a href="contact.html">Contact Us</a></li>
@@ -151,9 +151,9 @@
 							<div class="col-lg-7">
 								<div class="text">
 									<h1>Menyediakan <span>Pinjaman</span> hingga mencapai nominal <span>20 juta rupiah</span></h1>
-									<p>Dengan hutang hidup lebih menantang, ayo berhutang 🥰</p>
+									<p>Dengan Hutang Hidup Lebih Menantang, Ayo Berhutang 🥰</p>
 									<div class="button">
-										<a href="#" class="btn">Dapatkan Pinjaman</a>
+										<a href="pinjaman.php" class="btn">Mulai Pinjaman</a>
 									</div>
 								</div>
 							</div>
@@ -167,10 +167,10 @@
 						<div class="row">
 							<div class="col-lg-7">
 								<div class="text">
-									<h1>Akhirnya saya bisa <span>membayar biaya</span> sewa seragam anak saya, <span>Saya senang sekali</span></h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
+									<h1>Akhirnya saya sebagai <span>Pelajar</span> sudah memiliki <span>Simpanan</span> untuk <span>Masa Depan</span></h1>
+									<p>Ciptakan Rencana Masa Depan Pelajar Cemerlang Dengan SimPel </p>
 									<div class="button">
-										<a href="#" class="btn">Dapatkan Pinjaman</a>
+										<a href="simpanan.php" class="btn">Mulai Simpanan Pelajar</a>
 									</div>
 								</div>
 							</div>
@@ -185,9 +185,9 @@
 							<div class="col-lg-7">
 								<div class="text">
 									<h1>Anda butuh  <span>Dana Darurat?</span> Kami hadir sebagai koperasi yang bisa anda <span>Percaya</span></h1>
-									<p>Rungkad karena judi, crypto?, tenang.. kami siap membantu anda  </p>
+									<p>Rungkad Karena Judi, Crypto?, Tenang.. Kami Siap Membantu Anda  </p>
 									<div class="button">
-										<a href="#" class="btn">Dapatkan Pinjaman</a>
+										<a href="pinjaman.php" class="btn">Mulai Pinjaman</a>
 									</div>
 								</div>
 							</div>
@@ -212,10 +212,10 @@
 										<i class="fa fa-ambulance"></i>
 									</div>
 									<div class="single-content">
-										<span>menyediakan</span>
-										<h4>Pinjaman Pendidikan</h4>
+										<span>Kami Menyediakan</span>
+										<h4>Pinjaman Pelajar</h4>
 										<p>Untuk biaya pendidikan calon penerus bangsa</p>
-										<a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a>
+										<a href="pinjaman.php">Info Selengkapnya<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>
@@ -228,10 +228,10 @@
 										<i class="icofont-prescription"></i>
 									</div>
 									<div class="single-content">
-										<span>Menyediakan</span>
-										<h4>Pinjaman UMKM</h4>
-										<p>Membantu anda membuka usaha mikro kelas menengah</p>
-										<a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a>
+										<span>Kami Menyediakan</span>
+										<h4>Pinjaman Keluarga</h4>
+										<p>Membantu anda menyiapkan segala kebutuhan keluarga</p>
+										<a href="pinjaman.php">Info Selengkapnya<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>
@@ -244,14 +244,10 @@
 										<i class="icofont-ui-clock"></i>
 									</div>
 									<div class="single-content">
-										<span>Kami siap membantu anda</span>
-										<h4>Jam Operasional Kantor</h4>
-										<ul class="time-sidual">
-											<li class="day">Senin - Kamis <span>8.00-16.00</span></li>
-											<li class="day">Jumat <span>8.00-13.30</span></li>
-							
-										</ul>
-										<a href="#">LEARN MORE<i class="fa fa-long-arrow-right"></i></a>
+										<span>Kami Menyediakan</span>
+										<h4>Pinjaman Bisnis</h4>
+										<p>Membantu anda membuka usaha mikro kelas menengah</p>
+										<a href="pinjaman.php">Info Selengkapnya<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>
