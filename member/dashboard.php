@@ -3,6 +3,35 @@
   require("../php/connection.php");
   session_start();
   validation();
+  $userid = $_SESSION["userid"];
+  $datass = query("SELECT angsuran.*, detail_angsuran.* 
+                   FROM angsuran 
+                   JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
+                   WHERE angsuran.id_anggota = '$userid'");
+
+// Iterasi melalui setiap elemen dalam array data
+
+  if (mysqli_num_rows($datass) > 0) {
+      $totalhutang = 0;
+      $closest_due_date = null;
+
+      // Fetch all results into an associative array
+      while ($row = mysqli_fetch_assoc($datass)) {
+          // Menambahkan setiap baris ke dalam total hutang atau lakukan operasi lainnya
+          $totalhutang += $row['besar_angsuran']; // Misalnya menambah total hutang
+          $hutang = formatNumber($totalhutang);
+      }
+      
+    
+  } else{
+      $hutang = "Rp.0";
+      $closest_due_date_string = "-";
+  }
+
+  $datass = query("SELECT angsuran.*, detail_angsuran.* 
+  FROM angsuran 
+  JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
+  WHERE angsuran.id_anggota = '$userid'");
 ?>
 
 <!doctype html>
