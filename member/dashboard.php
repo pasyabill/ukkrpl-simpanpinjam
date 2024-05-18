@@ -4,34 +4,42 @@
   session_start();
   validation();
   $userid = $_SESSION["userid"];
-  $datass = query("SELECT angsuran.*, detail_angsuran.* 
-                   FROM angsuran 
-                   JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
-                   WHERE angsuran.id_anggota = '$userid'");
 
-// Iterasi melalui setiap elemen dalam array data
 
-  if (mysqli_num_rows($datass) > 0) {
-      $totalhutang = 0;
-      $closest_due_date = null;
+// Mengambil data angsuran
+$datass = query("SELECT angsuran.*, detail_angsuran.* 
+                 FROM angsuran 
+                 JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
+                 WHERE angsuran.id_anggota = '$userid'");
 
-      // Fetch all results into an associative array
-      while ($row = mysqli_fetch_assoc($datass)) {
-          // Menambahkan setiap baris ke dalam total hutang atau lakukan operasi lainnya
-          $totalhutang += $row['besar_angsuran']; // Misalnya menambah total hutang
-          $hutang = formatNumber($totalhutang);
-      }
-      
-    
-  } else{
-      $hutang = "Rp.0";
-      $closest_due_date_string = "-";
-  }
+$totalhutang = 0;
+$closest_due_date = null;
 
-  $datass = query("SELECT angsuran.*, detail_angsuran.* 
-  FROM angsuran 
-  JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
-  WHERE angsuran.id_anggota = '$userid'");
+if (mysqli_num_rows($datass) > 0) {
+    while ($row = mysqli_fetch_assoc($datass)) {
+        $totalhutang += $row['besar_angsuran'];
+        $current_due_date = new DateTime($row['tgl_jatuh_tempo']);
+   
+    }
+    $hutang = formatNumber($totalhutang);
+} else {
+    $hutang = "Rp.0";
+}
+
+// Mengambil data simpanan
+$datasss = query("SELECT * FROM simpanan WHERE id_anggota = '$userid'");
+$totaltabungan = 0;
+
+if (mysqli_num_rows($datasss) > 0) {
+    while ($row = mysqli_fetch_assoc($datasss)) {
+        $totaltabungan += $row['besar_simpanan'];
+    }
+    $tabungan = formatNumber($totaltabungan);
+} else {
+    $tabungan = "Rp.0";
+}
+
+
 ?>
 
 <!doctype html>
@@ -58,28 +66,23 @@
             </header>
             <nav class="dash-nav-list">
                 <a href="../index.php" class="dash-nav-item">
-                    <i class="fas fa-home"></i> Home </a>
+                <i class="fas fa-arrow-left"></i>Home </a>
                 <a href="dashboard.php" class="dash-nav-item">
                     <i class="fas fa-info ps-3"></i> Dashboard </a>
                 <a href="dashboard_pinjaman.php" class="dash-nav-item">
-                    <i class="fas fa-home"></i> Pinjam/Angsuran </a>
+                     <i class="fas fa-money-bill-wave"></i>Pinjam/Angsuran </a>
             </nav>
         </div>
         <div class="dash-app">
-            <header class="dash-toolbar">
-                
-                <h2>Dashboard</h2>
+            <header class="dash-toolbar d-flex">
+                    <h2>Zulfakayang</h2>
                 <div class="tools">
-                  
-                    <div class="dropdown tools-item">
-                        <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                            <a class="dropdown-item" href="#!">Profile</a>
-                            <a class="dropdown-item" href="logout.php">Logout</a>
-                        </div>
-                    </div>
+ 
+
+                        
+                        <a href="logout.php" class="btn btn-danger">logout</a>
+                   
+
                 </div>
             </header>
             <main class="dash-content">
@@ -88,11 +91,11 @@
                       
                         <div class="col-xl-6 d-inline-block p-3 mb-2 bg-success-subtle text-success-emphasis">
                             <h6>Tabungan Anda</h6>
-                            <h2>Rp. 3.000.000,00 </h2>
+                            <h2><?= $tabungan ?> </h2>
                         </div>
                         <div class="col-xl-6 d-inline-block ms-5 p-3 mb-2 bg-success-subtle text-success-emphasis">
                             <h6>Pinjaman Anda</h6>
-                            <h2>Rp. 3.000.000,00 </h2>
+                            <h2><?= $hutang ?> </h2>
 
                         </div>
                       

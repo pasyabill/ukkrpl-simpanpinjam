@@ -3,7 +3,6 @@
    require("../php/connection.php");
    session_start();
      validationAdmin();
-     $type = isset($_GET["type"]) ? $_GET["type"] : "";
      $search = isset($_POST["search"]) ? $_POST["search"] : "";
 ?>
 
@@ -27,13 +26,39 @@
         position: relative;
         max-width: 190px;
     }
-
+    .input_box {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        z-index: 90;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+    }
+    .form{
+        background-color: #fff;
+        display: block;
+        width: 400px;
+        height: 200px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+    }
+    .form > * {
+        width: 100%;
+    }
     .input {
         width: 100%;
         height: 40px;
         line-height: 28px;
         padding: 0 1rem;
-        padding-left: 2.5rem;
         border: 2px solid transparent;
         border-radius: 8px;
         outline: none;
@@ -45,7 +70,9 @@
     .input::placeholder {
         color: #9e9ea7;
     }
-
+    .ps-2 {
+        padding-left: 2.5em;
+    }
     .input:focus,
     input:hover {
         outline: none;
@@ -176,7 +203,7 @@
                                                     </path>
                                                 </g>
                                             </svg>
-                                            <input placeholder="Search" type="search" class="input" name="search"
+                                            <input placeholder="Search" type="search" class="input ps-2" name="search"
                                                 value="<?php echo $search; ?>">
 
                                         </div>
@@ -185,15 +212,9 @@
                                 </div>
                                 <div class="card-body text-center easion-card-body-chart">
                                 <div  class="row text-center drop_content drop_content_header">
-                                               
                                                 <div class="col">ID</div>
                                                 <div class="col">Nama</div>
-                                                <div class="col">Alamat</div>
-                                                <div class="col">Tgl Lahir</div>
-                                                <div class="col">Tmp Lahit</div>
-                                                <div class="col">jenis kelamin</div>
-                                                <div class="col">status</div>
-                                                <div class="col">no tlp</div>
+                                                <div class="col">Aksi</div>
                                             </div>
                                     <?php
                                     
@@ -218,11 +239,11 @@
                                         // Tambahkan kondisi pencarian ke dalam query
                                         $query .= " WHERE $searchQuery";
                                     }
-                                  
+                                        $i = 0;
                                       $data = query($query);
                                       if(mysqli_num_rows($data) > 0) :
                                       while($row = mysqli_fetch_assoc($data)) : 
-                                    
+                                        $i += 1;
                                ?>
                                     <div class="text-center col">
                                         <div class=" topContent">
@@ -230,12 +251,26 @@
                                             
                                                 <div class="col"><?php echo $row['id_anggota']; ?></div>
                                                 <div class="col"><?php echo $row['nama']; ?></div>
-                                                <div class="col"><?php echo $row['alamat']; ?></div>
-                                                <div class="col"><?php echo $row['tgl_lhr']; ?></div>
-                                                <div class="col"><?php echo $row['tmp_lhr']; ?></div>
-                                                <div class="col"><?php echo $row['j_kel']; ?></div>
-                                                <div class="col"><?php echo $row['status']; ?></div>
-                                                <div class="col"><?php echo $row['no_tlp']; ?></div>
+                                                <button onclick="btnClick(<?= $i ?>)"  class="col btn btn-success">simpanan</button>
+                                                <div class="input_box hidden" id="box<?= $i ?>">
+                                                    <div class="form">
+                                                        <div class="">
+                                                            <label for="nominal">Nominal Simpanan untuk <?php echo $row['nama']; ?></label>
+                                                            <input type="text" name="nominal" class="input">
+                                                        </div>
+                                                        <input type="hidden" name="id_anggota" class="input" value="<?php echo $row['id_anggota']; ?>">
+                                                        <div class="btnGroup">
+                                                            <button class="btn btn-success">simpan</button>
+                                                            <button onclick="btnClick(<?= $i ?>)" class="btn btn-danger">batal</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                          function btnClick(asd){
+                        let dropDown = document.getElementById("box"+asd);
+                        dropDown.classList.toggle("hidden");
+                      } 
+                                                        </script>
                                             </div>
                                         </div>
 

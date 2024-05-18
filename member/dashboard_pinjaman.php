@@ -112,6 +112,14 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
         align-self: center;
 
     }
+
+    .drop_content_header{
+        border-bottom: 0.55px solid rgba(0, 0, 0, 0.7);
+        padding-bottom: 10px;
+        font-weight: bold   ;
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
     </style>
 </head>
 
@@ -328,7 +336,7 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                                         AND JSON_CONTAINS(pinjaman.id_angsuran, JSON_QUOTE(angsuran.id_angsuran)))
                                                 )
                                                 JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
-                                                WHERE pinjaman.id_pinjaman = '663e430d0eb39'";
+                                                WHERE pinjaman.id_pinjaman = '{$row['id_pinjaman']}'";
                                                 
                                                 $data2 = query($query);
                                                 while($rows = mysqli_fetch_assoc($data2)) :
@@ -351,10 +359,6 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                                 }
                                                 ?>
                                                 </div>
-                                           
-
-
-
                                             </div>
                                             <?php
                                             endwhile;
