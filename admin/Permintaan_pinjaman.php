@@ -92,9 +92,10 @@
         align-self: center;
 
     }
-    .drop_content{
+
+    .drop_content {
         border-bottom: 0.3px solid rgba(234, 76, 137, 0.4);
-        
+
     }
 
     .hidden {
@@ -105,20 +106,21 @@
         height: auto;
     }
 
-    .angsur_row_parent{
+    .angsur_row_parent {
         border-bottom: 1px solid #0d0c22;
         padding-bottom: 10px;
         padding-top: 10px;
     }
+
     .angsur_row_parent>.col {
         align-self: center;
 
     }
 
-    .drop_content_header{
+    .drop_content_header {
         border-bottom: 0.55px solid rgba(0, 0, 0, 0.7);
         padding-bottom: 10px;
-        font-weight: bold   ;
+        font-weight: bold;
         margin-bottom: 10px;
         margin-top: -10px;
     }
@@ -135,13 +137,13 @@
                 <a href="index.html" class="easion-logo"><i class="fas fa-sun"></i> <span>PleciPlus</span></a>
             </header>
             <nav class="dash-nav-list">
-                <a href="index.php" class="dash-nav-item">
+                <a href="dashboard_petugas.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> Home </a>
                 <a href="nasabah.php" class="dash-nav-item">
                     <i class="fas fa-info ps-3"></i> nasabah </a>
-                <a href="pinjaman_nasabah.php" class="dash-nav-item">
+                <a href="permintaan_pinjaman.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> pinjaman nasabah </a>
-                <a href="index.html" class="dash-nav-item">
+                <a href="simpanan.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> tabungan nasabah </a>
             </nav>
         </div>
@@ -157,7 +159,7 @@
                             <i class="fas fa-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                            <a class="dropdown-item" href="#!">Profile</a>
+                         
                             <a class="dropdown-item" href="logout_petugas.php">Logout</a>
                         </div>
                     </div>
@@ -181,7 +183,7 @@
                             if(!empty($type)){
                                 echo($type);
                             }else{
-                                echo("Status Pinjaman");
+                                echo("diminta");
                             }
                             ?>
                                         </button>
@@ -199,6 +201,8 @@
                                             </li>
                                             <li><a class="dropdown-item"
                                                     href="permintaan_pinjaman.php?type=dipinjamkan">Dipinjamkan</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="permintaan_pinjaman.php?type=lunas">lunas</a></li>
                                         </ul>
                                     </div>
                                     <!-- Form for search box -->
@@ -220,21 +224,27 @@
                                     </form>
                                 </div>
                                 <div class="card-body text-center easion-card-body-chart">
-                                <div  class="row text-center drop_content drop_content_header">
-                                                <div class="col"><?php
+                                    <div class="row text-center drop_content drop_content_header">
+                                        <div class="col"><?php
                                                     if($type != 'dipinjamkan'){
                                                         echo 'tgl pengajuan';
                                                     }else{
                                                         echo 'tgl peminjaman';
                                                     }
                                                 ?></div>
-                                                <div class="col">Nama</div>
-                                                <div class="col">kategori</div>
-                                                <div class="col">Nominal</div>
-                                                <div class="col">status</div>
-                                                <div class="col">lama Angsuran</div>
-                                                <div class="col">Aksi</div>
-                                            </div>
+                                        <div class="col">Nama</div>
+                                        <div class="col">kategori</div>
+                                        <div class="col">Nominal</div>
+                                        <div class="col">status</div>
+                                        <div class="col">lama Angsuran</div>
+                                        <?php if($type != 'lunas') {
+                                            echo ("
+                                        <div class='col'>Aksi</div>
+                                            
+                                            ");
+                                        }
+                                        ?>
+                                    </div>
                                     <?php
                                       $query = "SELECT pinjaman.*, anggota.*, anggota.nama AS nama_anggota, pinjaman.ket AS pinjaman_ket FROM pinjaman JOIN anggota ON pinjaman.id_anggota = anggota.id_anggota ";
                                       if (!empty($type)) {
@@ -317,7 +327,8 @@
                                 if($row['pinjaman_ket'] == "dipinjamkan") :
                               ?>
 
-                                                <button name="down" onclick="buttonClick('<?= $row['id_pinjaman'] ?>')" id="<?= $row['id_pinjaman']?>"
+                                                <button name="down" onclick="buttonClick('<?= $row['id_pinjaman'] ?>')"
+                                                    id="<?= $row['id_pinjaman']?>"
                                                     class="btn col btn-warning">Angsuran</button>
 
                                                 <?php
@@ -333,25 +344,20 @@
 
                                         <div id="drop<?= $row['id_pinjaman'] ?>" class="hidden drop_box">
                                             <?php
-                                            if($row['pinjaman_ket'] == "dipinjamkan") :
-                                                $anggotaid = $row['id_pinjaman'];
-                                                $query = "SELECT *
-                                                FROM pinjaman
-                                                JOIN angsuran ON (
-                                                    -- Menggunakan nilai langsung jika bukan array JSON
-                                                    (JSON_VALID(pinjaman.id_angsuran) = 0 AND angsuran.id_angsuran = pinjaman.id_angsuran)
-                                                    -- Jika nilai dalam format JSON array, kita perlu mengurai nilainya
-                                                    OR (JSON_VALID(pinjaman.id_angsuran) = 1 
-                                                        AND JSON_CONTAINS(pinjaman.id_angsuran, JSON_QUOTE(angsuran.id_angsuran)))
-                                                )
-                                                JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
-                                                WHERE pinjaman.id_pinjaman = '$anggotaid'";
-                                                
-                                                $data2 = query($query);
-                                                    
+                                           if($row['pinjaman_ket'] == "dipinjamkan") :
+                                            $anggotaid = $row['id_pinjaman'];
+                                            $query = "SELECT * FROM pinjaman
+                                                      JOIN angsuran ON (
+                                                          (JSON_VALID(pinjaman.id_angsuran) = 0 AND angsuran.id_angsuran = pinjaman.id_angsuran)
+                                                          OR (JSON_VALID(pinjaman.id_angsuran) = 1 
+                                                              AND JSON_CONTAINS(pinjaman.id_angsuran, JSON_QUOTE(angsuran.id_angsuran)))
+                                                      )
+                                                      JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
+                                                      WHERE pinjaman.id_pinjaman = '$anggotaid'";
+                                            $data2 = query($query);
                                             
                                         ?>
-                                            <div  class="row text-center drop_content drop_content_header">
+                                            <div class="row text-center drop_content drop_content_header">
                                                 <div class="col">jatuh tempo</div>
                                                 <div class="col">id Angsuran</div>
                                                 <div class="col">Nominal</div>
@@ -362,7 +368,7 @@
                                             <?php
                                                 while($rows = mysqli_fetch_assoc($data2)) :
                                                         ?>
-                                            <div  class="row text-center drop_content mb-2">
+                                            <div class="row text-center drop_content mb-2">
                                                 <div class="col mb-2"><?= $rows['tgl_jatuh_tempo'] ?></div>
                                                 <div class="col mb-2"><?= $rows['id_angsuran']?></div>
                                                 <div class="col mb-2"><?= $rows['besar_angsuran']?></div>
@@ -376,13 +382,23 @@
                                                 }
                                                 ?>
                                                 </div>
+                                                <?php
+                                                    if($rows['ket'] != 'lunas') :
+                                                ?>
                                                 <form method="post" action="../php/ActionPinjaman.php" class="col">
                                                     <input type="hidden" name="idPinjam"
                                                         value="<?php echo $row['id_pinjaman'] ?>">
-                                                    <button name="terima"
+                                                    <input type="hidden" name="id_angsuran"
+                                                        value="<?php echo $rows['id_angsuran'] ?>">
+                                                    <button name="dibayar"
                                                         class="btn col mb-2 btn-success">dibayar</button>
                                                 </form>
+                                                <?php
+                                                    else :
+                                                        echo(" <div class='col mb-2'>lunas</div>");
+                                                    endif;
 
+                                                ?>
 
 
                                             </div>
@@ -422,11 +438,10 @@
     </script>
     <script src="../js/easion.js"></script>
     <script>
-                      function buttonClick(asd){
-                        let dropDown = document.getElementById("drop"+asd);
-                        dropDown.classList.toggle("hidden");
-                      }
-    
+    function buttonClick(asd) {
+        let dropDown = document.getElementById("drop" + asd);
+        dropDown.classList.toggle("hidden");
+    }
     </script>
 </body>
 

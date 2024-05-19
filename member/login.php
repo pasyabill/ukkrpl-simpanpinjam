@@ -13,6 +13,7 @@ session_start();
       if(password_verify($password, $user["password"])){
         session_start();
         $_SESSION['userid'] = $user['id_anggota'];
+        $_SESSION['username'] = $user['nama'];
         $_SESSION['pass'] = $password;
         header("Location: dashboard.php");
         exit();
@@ -31,6 +32,8 @@ session_start();
       $user = mysqli_fetch_assoc($login);
       if(password_verify($password, $user["password"])){
         $_SESSION['userid'] = $user['id_anggota'];
+        $_SESSION['username'] = $user['nama'];
+
         $_SESSION['pass'] = $password;
         if($_POST["remember"]){
           setcookie("remember", "true", time() + (86400 * 30), "/");
@@ -72,7 +75,7 @@ session_start();
         <h3>Login Plecit</h3>
     </div>
     <label for="exampleInputUsername" class="form-label">Username</label>
-    <input name="username" required  type="text" class="form-control" id="exampleInputUsername" aria-describedby="username">
+    <input name="username" required  type="text" class="form-control" id="exampleInputUsername" aria-describedby="usernamePlecit">
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>

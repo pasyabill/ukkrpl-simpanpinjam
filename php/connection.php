@@ -46,6 +46,8 @@ function validation(){
       $user = mysqli_fetch_assoc($login);
       if(password_verify($password, $user["password"])){
         $_SESSION['userid'] = $user['id_anggota'];
+        $_SESSION['username'] = $user['nama'];
+        
         $_SESSION['pass'] = $user['password'];
       }
     }else{

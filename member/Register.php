@@ -3,7 +3,6 @@
   if(isset($_COOKIE["remember"]) && isset($_COOKIE["name"])){
   $username = $_COOKIE["name"];
   $password = $_COOKIE["password"];
-  $invalid = $_GET["invalid"];
   $query = "SELECT * FROM anggota WHERE nama= '$username'";
     $login =  query($query);
   if($login && mysqli_num_rows($login)> 0){

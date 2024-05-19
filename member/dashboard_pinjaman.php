@@ -134,29 +134,18 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
             </header>
             <nav class="dash-nav-list">
                 <a href="../index.php" class="dash-nav-item">
-                    <i class="fas fa-home"></i> Home </a>
+                <i class="fas fa-arrow-left"></i>Home </a>
                 <a href="dashboard.php" class="dash-nav-item">
                     <i class="fas fa-info ps-3"></i> Dashboard </a>
                 <a href="dashboard_pinjaman.php" class="dash-nav-item">
-                    <i class="fas fa-home"></i> Pinjam/Angsuran </a>
+                     <i class="fas fa-money-bill-wave"></i>Pinjam/Angsuran </a>
             </nav>
         </div>
         <div class="dash-app">
-            <header class="dash-toolbar">
-
-                <h2>Dashboard</h2>
+            <header class="dash-toolbar d-flex">
+                <h2>Zulfakayang</h2>
                 <div class="tools">
-
-                    <div class="dropdown tools-item">
-                        <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i class="fas fa-user"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                            <a class="dropdown-item" href="#!">Profile</a>
-                            <a class="dropdown-item" href="logout.php">Logout</a>
-                        </div>
-                    </div>
+                    <a href="logout.php" class="btn btn-danger">logout</a>
                 </div>
             </header>
             <?php 
@@ -164,7 +153,7 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                 $datass = query("SELECT angsuran.*, detail_angsuran.* 
                                  FROM angsuran 
                                  JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
-                                 WHERE angsuran.id_anggota = '$userid'");
+                                 WHERE angsuran.id_anggota = '$userid' and angsuran.ket != 'lunas'");
 
             // Iterasi melalui setiap elemen dalam array data
           
@@ -221,7 +210,7 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                             if(!empty($type)){
                                 echo($type);
                             }else{
-                                echo("Status Pinjaman");
+                                echo("diminta");
                             }
                             ?>
                                         </button>
@@ -239,6 +228,8 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                             </li>
                                             <li><a class="dropdown-item"
                                                     href="dashboard_pinjaman.php?type=dipinjamkan">Dipinjamkan</a></li>
+                                                    <li><a class="dropdown-item"
+                                                    href="dashboard_pinjaman.php?type=lunas">lunas</a></li>
                                         </ul>
                                     </div>
                                     <!-- Form for search box -->
@@ -260,13 +251,32 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                     </form>
                                 </div>
                                 <div class="card-body easion-card-body-chart">
-                                <?php
-                                $id_a = $_SESSION["userid"];
-                                      $query = "SELECT pinjaman.*, pinjaman.ket AS pinjaman_ket FROM pinjaman JOIN anggota ON pinjaman.id_anggota = anggota.id_anggota Where pinjaman.id_anggota = '$id_a'";
+                                <div  class="row text-center drop_content drop_content_header">
+                                                <div class="col"><?php
+                                                    if($type != 'dipinjamkan'){
+                                                        echo 'tgl pengajuan';
+                                                    }else{
+                                                        echo 'tgl peminjaman';
+                                                    }
+                                                ?></div>
+                                                <div class="col">kategori</div>
+                                                <div class="col">Nominal</div>
+                                                <div class="col">status</div>
+                                                <div class="col">lama Angsuran</div>
+                                                <?php if($type != 'lunas') {
+                                            echo ("
+                                        <div class='col'>Aksi</div>
+                                            
+                                            ");
+                                        }
+                                        ?>
+                                            </div>
+                                    <?php
+                                      $query = "SELECT * from pinjaman where id_anggota='{$_SESSION['userid']}' ";
                                       if (!empty($type)) {
-                                        $query .= "and pinjaman.ket = '$type'";
+                                        $query .= "and ket = '$type'";
                                     }else{
-                                        $query .= "and pinjaman.ket = 'diminta'";
+                                        $query .= "and ket = 'diminta'";
                                     }
                 
                                     // Jika $_GET["search"] tersedia, tambahkan kondisi ke dalam query
@@ -277,12 +287,13 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                         $searchConditions = [];
                                         while ($col = mysqli_fetch_assoc($columns)) {
                                             // Tambahkan kondisi pencarian untuk setiap kolom
-                                            $searchConditions[] = "pinjaman." . $col['Field'] . " LIKE '%$search%'";
+                                            if($col['Field'] != 'id_anggota' ||  $col['Field'] != 'ket'){
+                                            $searchConditions[] = $col['Field'] . " LIKE '%$search%'";
+                                            }
                                         }
                                         $searchQuery = implode(" OR ", $searchConditions);
                                         // Tambahkan kondisi pencarian ke dalam query
                                         $query .= " AND ($searchQuery)";
-                                        $query .= " OR anggota.nama LIKE '%$search%'";
                                     }
                                       $data = query($query);
                                       if(mysqli_num_rows($data) > 0) :
@@ -298,23 +309,35 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                     <div class="text-center col">
                                         <div class=" topContent">
                                             <div class="row angsur_row_parent text-center">
-                                                <div class="col"><?php echo $row['tgl_pengajuan_pinjaman']; ?></div>
+                                                <div class="col"><?php
+                                                    if($type != 'dipinjamkan'){
+                                                        echo $row['tgl_pengajuan_pinjaman'];
+                                                    }else{
+                                                        echo $row['tgl_acc_peminjaman'];
+                                                    }
+                                                ?></div>
                                                 <div class="col"><?php echo $row['nama_pinjaman']; ?></div>
                                                 <div class="col"><?php echo $row['besar_pinjaman']; ?></div>
-                                                <div class="col"><?php echo $row['pinjaman_ket']; ?></div>
+                                                <div class="col"><?php echo $row['ket']; ?></div>
                                                 <div class="col"><?php echo $lamaangsur; ?> bulan</div>
 
                                             
+
+                              
                                                 <?php
-                                if($row['pinjaman_ket'] == "dipinjamkan") :
+                                if($row['ket'] == "dipinjamkan") :
                               ?>
 
                                                 <button name="down" onclick="buttonClick('<?= $row['id_pinjaman'] ?>')" id="<?= $row['id_pinjaman']?>"
                                                     class="btn col btn-warning">Angsuran</button>
 
                                                 <?php
-                                endif;
+                                elseif ($row['ket'] != 'lunas') :
                               ?>
+                                <div class="col">-</div>
+                                <?php
+                                endif
+                                ?>
 
 
 
@@ -325,9 +348,10 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
 
                                         <div id="drop<?= $row['id_pinjaman'] ?>" class="hidden drop_box">
                                             <?php
-                                            if($row['pinjaman_ket'] == "dipinjamkan") :
+                                            if($row['ket'] == "dipinjamkan") :
                                                 $anggotaid = $row['id_pinjaman'];
-                                                $query = "SELECT pinjaman.*,angsuran.*, detail_angsuran.*, angsuran.ket AS angsuran_ket FROM pinjaman
+                                                $query = "SELECT *
+                                                FROM pinjaman
                                                 JOIN angsuran ON (
                                                     -- Menggunakan nilai langsung jika bukan array JSON
                                                     (JSON_VALID(pinjaman.id_angsuran) = 0 AND angsuran.id_angsuran = pinjaman.id_angsuran)
@@ -336,21 +360,28 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                                         AND JSON_CONTAINS(pinjaman.id_angsuran, JSON_QUOTE(angsuran.id_angsuran)))
                                                 )
                                                 JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
-                                                WHERE pinjaman.id_pinjaman = '{$row['id_pinjaman']}'";
+                                                WHERE pinjaman.id_pinjaman = '$anggotaid'";
                                                 
                                                 $data2 = query($query);
-                                                while($rows = mysqli_fetch_assoc($data2)) :
                                                     
                                             
                                         ?>
-
-                                            <div  class="row text-center drop_content">
-                                                <div class="col"><?= $rows['tgl_jatuh_tempo'] ?></div>
-                                                <div class="col"><?= $rows['id_angsuran']?></div>
-                                                <div class="col"><?= $rows['besar_angsuran']?></div>
-                                                <div class="col"><?= $rows['angsuran_ket']?></div>
-                                                <div class="col">Bulan ke <?= $rows['angsuran_ke']?></div>
-                                                <div class="col">
+                                            <div  class="row text-center drop_content drop_content_header">
+                                                <div class="col">jatuh tempo</div>
+                                                <div class="col">id Angsuran</div>
+                                                <div class="col">Nominal</div>
+                                                <div class="col">Angsuran Ke</div>
+                                                <div class="col">tanggal Pembayaran</div>
+                                            </div>
+                                            <?php
+                                                while($rows = mysqli_fetch_assoc($data2)) :
+                                                        ?>
+                                            <div  class="row text-center drop_content mb-2">
+                                                <div class="col mb-2"><?= $rows['tgl_jatuh_tempo'] ?></div>
+                                                <div class="col mb-2"><?= $rows['id_angsuran']?></div>
+                                                <div class="col mb-2"><?= $rows['besar_angsuran']?></div>
+                                                <div class="col mb-2"><?= $rows['angsuran_ke']?></div>
+                                                <div class="col mb-2">
                                                     <?php
                                                 if($rows['tgl_pembayaran'] != null){
                                                     echo $rows['tgl_pembayaran'];
@@ -359,6 +390,10 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                                                 }
                                                 ?>
                                                 </div>
+                                          
+
+
+
                                             </div>
                                             <?php
                                             endwhile;
@@ -373,6 +408,8 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
                           endwhile;
                       endif;
                       ?>
+
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -396,11 +433,10 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
 
     <script src="../js/easion.js"></script>
     <script>
-                      function buttonClick(asd){
-                        let dropDown = document.getElementById("drop"+asd);
-                        dropDown.classList.toggle("hidden");
-                      }
-    
+    function buttonClick(asd) {
+        let dropDown = document.getElementById("drop" + asd);
+        dropDown.classList.toggle("hidden");
+    }
     </script>
 </body>
 

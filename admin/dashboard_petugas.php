@@ -47,6 +47,110 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="../js/chart-js-config.js"></script>
     <title>Pleciplus</title>
+    <style>
+    .group {
+        display: flex;
+        line-height: 28px;
+        align-items: center;
+        position: relative;
+        max-width: 190px;
+    }
+
+    .input {
+        width: 100%;
+        height: 40px;
+        line-height: 28px;
+        padding: 0 1rem;
+        padding-left: 2.5rem;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        outline: none;
+        background-color: #f3f3f4;
+        color: #0d0c22;
+        transition: .3s ease;
+    }
+
+    .input::placeholder {
+        color: #9e9ea7;
+    }
+
+    .input:focus,
+    input:hover {
+        outline: none;
+        border-color: rgba(234, 76, 137, 0.4);
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+    }
+
+    .icon {
+        position: absolute;
+        left: 1rem;
+        fill: #9e9ea7;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .search_box {
+        margin-left: 10px;
+    }
+
+    .dropdown_angsur {
+        height: 50px;
+
+    }
+
+    .topContent>.col {
+        display: block;
+        align-self: center;
+    }
+
+    .topContent {
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    .drop_box {
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .drop_content>.col {
+        align-self: center;
+
+    }
+
+    .drop_content {
+        border-bottom: 0.3px solid rgba(234, 76, 137, 0.4);
+
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .card-body {
+        height: auto;
+    }
+
+    .angsur_row_parent {
+        border-bottom: 1px solid #0d0c22;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .angsur_row_parent>.col {
+        align-self: center;
+
+    }
+
+    .drop_content_header {
+        border-bottom: 0.55px solid rgba(0, 0, 0, 0.7);
+        padding-bottom: 10px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
+    </style>
 </head>
 <body>
     <div class="dash">
@@ -63,9 +167,9 @@
                 <a href="nasabah.php" class="dash-nav-item">
                     <i class="fas fa-info ps-3"></i> nasabah </a>
                 <a href="permintaan_pinjaman.php" class="dash-nav-item">
-                    <i class="fas fa-home"></i> Permintaan Pinjaman </a>
-                    <a href="index.html" class="dash-nav-item">
-                    <i class="fas fa-home"></i> angsuran nasabah  </a>
+                    <i class="fas fa-home"></i> pinjaman nasabah </a>
+                <a href="simpanan.php" class="dash-nav-item">
+                    <i class="fas fa-home"></i> tabungan nasabah </a>
             </nav>
         </div>
         <div class="dash-app">
@@ -98,12 +202,35 @@
                                     <div class="easion-card-icon">
                                         <i class="fas fa-chart-bar"></i>
                                     </div>
-                                    <div class="easion-card-title"> Transaksi Koperasi </div>
+                                    <div class="easion-card-title"> Transaksi simpanan Koperasi </div>
                                 </div>
                                 <div class="card-body easion-card-body-chart">
-                                   <div class="row ">
-
-                                   </div>
+                                <?php
+                                   $query = "SELECT * from simpanan";
+                                   $data = query($query);
+                                    if(mysqli_num_rows($data) > 0) :
+                                   while($row = mysqli_fetch_assoc($data)) :
+                                ?>
+                              
+                                            <div class="row mb-2 ">
+                                                <div class="col">
+                                                    <?php echo $row['nm_simpanan']; ?>
+                                                </div>
+                                                <div class="col">
+                                                    <?php echo $row['tgl_simpanan']; ?>
+                                                </div>
+                                                <div class="col">
+                                                    <?php echo formatNumber($row['besar_simpanan']); ?>
+                                                </div>
+                                                <div class="col">
+                                                    <?php echo $row['ket']; ?>
+                                                </div>
+                                            </div>
+                               
+                                    <?php
+                                    endwhile;
+                                endif;
+                                ?>
                                 </div>
                             </div>
                         </div>
@@ -115,40 +242,36 @@
                                     </div>
                                     <div class="easion-card-title"> Permintaan Pinjaman </div>
                                 </div>
-                                <div class="card-body ">
+                                <div class="card-body text-center easion-card-body-chart">
+                                   
                                 <?php
-                        $query = "SELECT * from pinjaman join anggota on pinjaman.id_anggota = anggota.id_anggota where pinjaman.ket = 'wait'";
+                        $query = "SELECT * from pinjaman join anggota on pinjaman.id_anggota = anggota.id_anggota where pinjaman.ket = 'diminta'";
                         $data = query($query);
                         if(mysqli_num_rows($data) > 0) :
-                            $all = mysqli_fetch_assoc($data);
                             while($row = mysqli_fetch_assoc($data)) :
                                 ?>
                               
                                             <div class="row mb-2 ">
                                                 <div class="col">
-                                                    <?php echo $row['nama_anggota']; ?>
+                                                    <?php echo $row['nama']; ?>
                                                 </div>
                                                 <div class="col">
                                                     <?php echo $row['nama_pinjaman']; ?>
                                                 </div>
                                                 <div class="col">
-                                                    <?php echo $row['besar_pinjaman']; ?>
+                                                    <?php echo formatNumber($row['besar_pinjaman']); ?>
                                                 </div>
                                                 <div class="col">
                                                     <?php echo count(json_decode($row["id_angsuran"])) . "bulan "; ?>
                                                 </div>
-                                                <div class="col">
-                                                    <a href="" class="btn btn-danger">tolak</a>
-                                                </div>
-                                                <div class="col">
-                                                    <a href="" class="btn btn-success">acc</a>
-                                                </div>
+                                              
                                             </div>
                                
-                                <?php
+                                    <?php
                                     endwhile;
                                 endif;
                                 ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>

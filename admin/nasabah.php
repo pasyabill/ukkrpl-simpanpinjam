@@ -132,13 +132,13 @@
                 <a href="index.html" class="easion-logo"><i class="fas fa-sun"></i> <span>PleciPlus</span></a>
             </header>
             <nav class="dash-nav-list">
-                <a href="index.php" class="dash-nav-item">
+                <a href="dashboard_petugas.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> Home </a>
-                <a href="dashboard.php" class="dash-nav-item">
+                <a href="nasabah.php" class="dash-nav-item">
                     <i class="fas fa-info ps-3"></i> nasabah </a>
-                <a href="index.html" class="dash-nav-item">
+                <a href="permintaan_pinjaman.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> pinjaman nasabah </a>
-                    <a href="index.html" class="dash-nav-item">
+                <a href="simpanan.php" class="dash-nav-item">
                     <i class="fas fa-home"></i> tabungan nasabah </a>
             </nav>
         </div>
@@ -194,6 +194,7 @@
                                                 <div class="col">jenis kelamin</div>
                                                 <div class="col">status</div>
                                                 <div class="col">no tlp</div>
+                                                <div class="col">aksi</div>
                                             </div>
                                     <?php
                                     
@@ -236,6 +237,10 @@
                                                 <div class="col"><?php echo $row['j_kel']; ?></div>
                                                 <div class="col"><?php echo $row['status']; ?></div>
                                                 <div class="col"><?php echo $row['no_tlp']; ?></div>
+                                                <form class="col" action="hapus_anggota.php" method="post">
+                                                    <input type="hidden" value="<?php echo $row['id_anggota']; ?>" name="id_anggota">
+                                                    <button type="submit" class="btn btn-danger">hapus</button>
+                                                </form>
                                             </div>
                                         </div>
 

@@ -10,7 +10,7 @@
 $datass = query("SELECT angsuran.*, detail_angsuran.* 
                  FROM angsuran 
                  JOIN detail_angsuran ON angsuran.id_angsuran = detail_angsuran.id_angsuran 
-                 WHERE angsuran.id_anggota = '$userid'");
+                 WHERE angsuran.id_anggota = '$userid' and ket != 'lunas'");
 
 $totalhutang = 0;
 $closest_due_date = null;
@@ -27,14 +27,12 @@ if (mysqli_num_rows($datass) > 0) {
 }
 
 // Mengambil data simpanan
-$datasss = query("SELECT * FROM simpanan WHERE id_anggota = '$userid'");
+$datasss = query("SELECT * FROM saldo WHERE id_anggota = '$userid'");
 $totaltabungan = 0;
 
 if (mysqli_num_rows($datasss) > 0) {
-    while ($row = mysqli_fetch_assoc($datasss)) {
-        $totaltabungan += $row['besar_simpanan'];
-    }
-    $tabungan = formatNumber($totaltabungan);
+    $row = mysqli_fetch_assoc($datasss);
+    $tabungan = formatNumber($row['saldo']);
 } else {
     $tabungan = "Rp.0";
 }
@@ -54,6 +52,108 @@ if (mysqli_num_rows($datasss) > 0) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="../js/chart-js-config.js"></script>
     <title>Pleciplus</title>
+    <style>
+    .group {
+        display: flex;
+        line-height: 28px;
+        align-items: center;
+        position: relative;
+        max-width: 190px;
+    }
+
+    .input {
+        width: 100%;
+        height: 40px;
+        line-height: 28px;
+        padding: 0 1rem;
+        padding-left: 2.5rem;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        outline: none;
+        background-color: #f3f3f4;
+        color: #0d0c22;
+        transition: .3s ease;
+    }
+
+    .input::placeholder {
+        color: #9e9ea7;
+    }
+
+    .input:focus,
+    input:hover {
+        outline: none;
+        border-color: rgba(234, 76, 137, 0.4);
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+    }
+
+    .icon {
+        position: absolute;
+        left: 1rem;
+        fill: #9e9ea7;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .search_box {
+        margin-left: 10px;
+    }
+
+    .dropdown_angsur {
+        height: 50px;
+
+    }
+
+    .topContent>.col {
+        display: block;
+        align-self: center;
+    }
+
+    .topContent {
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    .drop_box {
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .drop_content>.col {
+        align-self: center;
+
+    }
+    .drop_content{
+        border-bottom: 0.3px solid rgba(234, 76, 137, 0.4);
+        
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .card-body {
+        height: auto;
+    }
+
+    .angsur_row_parent{
+        border-bottom: 1px solid #0d0c22;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .angsur_row_parent>.col {
+        align-self: center;
+
+    }
+
+    .drop_content_header{
+        border-bottom: 0.55px solid rgba(0, 0, 0, 0.7);
+        padding-bottom: 10px;
+        font-weight: bold   ;
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
+    </style>
 </head>
 <body>
     <div class="dash">
@@ -75,7 +175,7 @@ if (mysqli_num_rows($datasss) > 0) {
         </div>
         <div class="dash-app">
             <header class="dash-toolbar d-flex">
-                    <h2>Zulfakayang</h2>
+                    <h2><?= $_SESSION['username']?></h2>
                 <div class="tools">
  
 
@@ -110,9 +210,47 @@ if (mysqli_num_rows($datasss) > 0) {
                                     <div class="easion-card-title"> History tabungan </div>
                                 </div>
                                 <div class="card-body easion-card-body-chart">
-                                   <div class="row ">
+                                <div  class="row text-center drop_content drop_content_header">
+                                                <div class="col">Tanggal</div>
+                                                <div class="col">Nama</div>
+                                                <div class="col">Nominal</div>
+                                                <div class="col">keterangan</div>
+
+                                            </div>
+                                    <?php
+                                    
+                                   
+                
+                              
+                                    $query = "SELECT * FROM simpanan where id_anggota='{$_SESSION['userid']}'";
+
+                                  
+                                      $data = query($query);
+                                      if(mysqli_num_rows($data) > 0) :
+                                      while($row = mysqli_fetch_assoc($data)) : 
+                               ?>
+                                    <div class="text-center col">
+                                        <div class=" topContent">
+                                            <div class="row angsur_row_parent text-center">
                                             
-                                   </div>
+                                                <div class="col"><?php echo $row['tgl_simpanan']; ?></div>
+                                                <div class="col"><?php echo $row['nm_simpanan']; ?></div>
+                                                <div class="col"><?php echo formatNumber($row['besar_simpanan']); ?></div>
+                                                <div class="col"><?php echo $row['ket']; ?></div>
+
+                                            
+                                           
+                              
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <?php
+                          endwhile;
+                      endif;
+                      ?>
                                 </div>
                             </div>
                         </div>
