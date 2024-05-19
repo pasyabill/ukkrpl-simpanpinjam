@@ -18,26 +18,7 @@ if(isset($_POST)){
     $max;
     $min;
     $kategori = $_POST["kategori"];
-    switch($kategori) {
-      case 'pelajar' :
-        global $max;
-        global $min;
-        $min = 500000;
-        $max = 1900000;
-        break;
-      case 'keluarga' :
-          global $max;
-          global $min;
-        $min = 2000000;
-        $max = 9900000;
-        break;
-      case 'bisnis' :
-          global $max;
-          global $min;
-        $min = 10000000;
-        $max = 20000000;
-        break;
-    }
+   
     $lamaCicil = intval($_POST["angsur"]);
     $id_angsur = array();
     $idpinjam = uniqid();

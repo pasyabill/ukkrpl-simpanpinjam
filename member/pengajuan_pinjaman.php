@@ -71,11 +71,11 @@ switch($kategori) {
         </div>
         <div class="col">
             <label for="kategoriSelect" class="form-label">Kategori</label>
-            <select id="kategoriSelect" name="status" class="form-select">
-                <option value="pelajar">Pelajar</option>
-                <option value="keluarga">Keluarga</option>
-                <option value="bisnis">Bisnis</option>
-            </select>
+            <select id="kategoriSelect" name="kategori" class="form-select">
+    <option value="pelajar" <?php if(isset($_GET['kategori']) && $_GET['kategori'] == 'pelajar') echo 'selected'; ?>>Pelajar</option>
+    <option value="keluarga" <?php if(isset($_GET['kategori']) && $_GET['kategori'] == 'keluarga') echo 'selected'; ?>>Keluarga</option>
+    <option value="bisnis" <?php if(isset($_GET['kategori']) && $_GET['kategori'] == 'bisnis') echo 'selected'; ?>>Bisnis</option>
+</select>
         </div>
     </div>
     <?php if(isset($_GET["error"]) && $_GET["error"] == "snk") : ?>
@@ -88,7 +88,6 @@ switch($kategori) {
         <label  class="form-check-label" for="exampleCheck1">Saya setuju dengan kebijakan bank plecit</label>
     </div>
     <div class="row mb-1">
-        <input type="hidden" name="kategori" value="<?= $kategori ?>">
         <div class="button-group d-flex gap-2">
             <button id="btnSubmit" name="submit" type="submit" class="btn btn-primary">Submit</button>
         </div>
@@ -101,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const kategoriSelect = document.getElementById('kategoriSelect');
     const nominalInput = document.getElementById('nominalInput');
     const angsurSelect = document.getElementById('angsurSelect');
+    const kategoriinp = document.getElementById('kateogriinp');
     const submitButton = document.getElementById('btnSubmit');
     const text= document.getElementById('text');
     const inputField = document.getElementById('nominalInput');
@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setParameters(10000000, 200000000, 12);
                 break;
         }
+        kategoriinp.value = this.value;
     });
  
     function setParameters(smin, smax, lamaAngsur) {

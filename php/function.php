@@ -26,6 +26,18 @@ function terimaPinjaman($idPinjaman){
     $nominal = $data_pinjaman["besar_pinjaman"];
     $id_kategori = $data_pinjaman["id_kategori_pinjaman"];
     $id = $data_pinjaman["id_anggota"];
+    $bunga = 0.0;
+    switch($id_kategori){
+        case 1 :
+            $bunga = 0.05;
+            break;
+        case 2 :
+            $bunga = 0.07;
+            break;
+        case 3 :
+            $bunga = 0.10;
+            break;
+    }
     
     // Loop untuk memproses setiap elemen dalam array $id_angsur_raw
     for($i = 0; $i < $lamaAngsur; $i++) {
@@ -34,7 +46,7 @@ function terimaPinjaman($idPinjaman){
     
         $jatuhtempo = date("Y-m-d", strtotime("+".($i+1)." months"));
         $biayaCicil = ($nominal / $lamaAngsur);
-        $biayaCicil = $biayaCicil + ($biayaCicil * 0.10);
+        $biayaCicil = $biayaCicil + ($biayaCicil * $bunga);
     
         query("INSERT INTO angsuran (id_angsuran, id_kategori, id_anggota, angsuran_ke) VALUES ('$id_angsuran', '$id_kategori', '$id', '" . ($i + 1) . "')");
         query("INSERT INTO detail_angsuran (id_angsuran, tgl_jatuh_tempo, besar_angsuran) VALUES ('$id_angsuran', '$jatuhtempo', '$biayaCicil')");

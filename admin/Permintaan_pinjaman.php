@@ -298,7 +298,8 @@
                                                 <?php
                                 if($row['pinjaman_ket'] == "diminta") :
                               ?>
-                                                <form method="post" class="col" action="../php/ActionPinjaman.php">
+                                               <div class="col btn-group">
+                                               <form method="post" class="col" action="../php/ActionPinjaman.php">
                                                     <input type="hidden" name="idPinjam"
                                                         value="<?php echo $row['id_pinjaman'] ?>">
                                                     <button name="reject" class="btn btn-danger">Tolak</button>
@@ -308,6 +309,7 @@
                                                         value="<?php echo $row['id_pinjaman'] ?>">
                                                     <button name="acc" class="btn btn-success">Acc</button>
                                                 </form>
+                                               </div>
                                                 <?php
                                 endif;
                               ?>
