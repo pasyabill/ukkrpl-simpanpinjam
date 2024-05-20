@@ -1,5 +1,6 @@
 <?php
  require("../php/connection.php");
+ session_start();
  if(count($_POST) >= 7){
    if(isset($_POST['submitpass'])){
   if($_POST["password"] == $_POST["p2"]){
@@ -11,7 +12,7 @@
     $no_tlp = $_POST["no_tlp"];
     $keterangan = $_POST["keterangan"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-    $query = "INSERT INTO petugas_koperasi VALUES ('$id', '$nama', '$alamat', '$tgllhr', '$tmplhr', '$no_tlp', '$keterangan', '$password')";
+    $query = "INSERT INTO petugas_koperasi VALUES ('$id', '$nama', '$alamat', '$no_tlp','$tmplhr', '$tgllhr',   '$keterangan', '$password')";
     $add = query($query);
     if($add){
       header(("Location: AdminRegisterSucces.php"));
@@ -38,7 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
   </head>
 </head>
 <body>

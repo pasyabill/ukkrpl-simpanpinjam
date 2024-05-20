@@ -113,7 +113,6 @@
 											<li><a href="tabungan.php">Tabungan </a></li>
 											<li><a href="pinjaman.php">Pinjaman </a></li>
 											
-											<li><a href="contact.html">Contact Us</a></li>
 										</ul>
 									</nav>
 								</div>
@@ -123,7 +122,7 @@
 							<?php if(!$islogin) : ?>
 							<div class="col-lg-2 col-12">
 								<div class="get-quote ms-5">
-									<a href="login.php" class="btn">Login</a>
+									<a href="member/login.php" class="btn">Login</a>
 								</div>
 							</div>
 							<?php else : ?>

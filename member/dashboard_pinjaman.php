@@ -143,7 +143,7 @@ $search = isset($_GET["search"]) ? $_GET["search"] : "";
         </div>
         <div class="dash-app">
             <header class="dash-toolbar d-flex">
-                <h2>Zulfakayang</h2>
+            <h2><?= $_SESSION['username']?></h2>
                 <div class="tools">
                     <a href="logout.php" class="btn btn-danger">logout</a>
                 </div>

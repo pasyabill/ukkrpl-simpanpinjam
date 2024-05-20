@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 20, 2024 at 05:12 AM
+-- Generation Time: May 20, 2024 at 07:35 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -45,7 +45,8 @@ CREATE TABLE `anggota` (
 --
 
 INSERT INTO `anggota` (`id_anggota`, `nama`, `alamat`, `tgl_lhr`, `tmp_lhr`, `j_kel`, `status`, `no_tlp`, `ket`, `password`) VALUES
-('664a37300471c', 'AyanoKoji', 'tampingan', '1111-11-11', 'Magelang', 'laki-laki', 'menikah', '088216072167', '123213', '$2y$10$i0cv2CEZgAp2b6QGqYn.aOuRvolIlwMQniUhyK2SjN/laLGtPM7JK');
+('664a37300471c', 'AyanoKoji', 'tampingan', '1111-11-11', 'Magelang', 'laki-laki', 'menikah', '088216072167', '123213', '$2y$10$i0cv2CEZgAp2b6QGqYn.aOuRvolIlwMQniUhyK2SjN/laLGtPM7JK'),
+('664af6cab25c7', 'julpaa', 'Magelang', '2024-05-01', 'Magelang', 'perempuan', 'lajang', '081727383923', 'apa yha', '$2y$10$sFeED4G2DhESeN5ucYePUOWtk1a9.xRdBxiLTqFRMg4bQZ8UOiVwS');
 
 -- --------------------------------------------------------
 
@@ -81,7 +82,15 @@ INSERT INTO `angsuran` (`id_angsuran`, `id_kategori`, `id_anggota`, `tgl_pembaya
 ('664a419328b25', 1, '664a37300471c', '2024-05-19', 11, 'lunas'),
 ('664a419328b26', 1, '664a37300471c', '2024-05-19', 12, 'lunas'),
 ('664a4505d5a25', 1, '664a37300471c', NULL, 1, 'belum'),
-('664a46125f60b', 2, '664a37300471c', NULL, 1, 'belum');
+('664a46125f60b', 2, '664a37300471c', NULL, 1, 'belum'),
+('664af74e138ce', 1, '664af6cab25c7', '2024-05-20', 1, 'lunas'),
+('664af74e138cf', 1, '664af6cab25c7', '2024-05-20', 2, 'lunas'),
+('664af74e138d0', 1, '664af6cab25c7', '2024-05-20', 3, 'lunas'),
+('664af74e138d1', 1, '664af6cab25c7', '2024-05-20', 4, 'lunas'),
+('664afb100c517', 1, '664af6cab25c7', '2024-05-20', 1, 'lunas'),
+('664afb100c518', 1, '664af6cab25c7', '2024-05-20', 2, 'lunas'),
+('664afb100c519', 1, '664af6cab25c7', NULL, 3, 'belum'),
+('664afbee0d416', 1, '664af6cab25c7', NULL, 1, 'belum');
 
 -- --------------------------------------------------------
 
@@ -115,7 +124,15 @@ INSERT INTO `detail_angsuran` (`id`, `id_angsuran`, `tgl_jatuh_tempo`, `besar_an
 (12, '664a419328b26', '2025-05-19', 91667),
 (13, '664a4178b0055', '2024-06-19', 550000),
 (14, '664a4505d5a25', '2024-06-19', 11000000),
-(15, '664a46125f60b', '2024-06-19', 535000);
+(15, '664a46125f60b', '2024-06-19', 535000),
+(16, '664af74e138ce', '2024-06-20', 498750),
+(17, '664af74e138cf', '2024-07-20', 498750),
+(18, '664af74e138d0', '2024-08-20', 498750),
+(19, '664af74e138d1', '2024-09-20', 498750),
+(20, '664afb100c517', '2024-06-20', 315000),
+(21, '664afb100c518', '2024-07-20', 315000),
+(22, '664afb100c519', '2024-08-20', 315000),
+(23, '664afbee0d416', '2024-06-20', 630000);
 
 -- --------------------------------------------------------
 
@@ -147,9 +164,9 @@ CREATE TABLE `petugas_koperasi` (
   `id_petugas` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `no_tlp` int NOT NULL,
+  `no_tlp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `tmp_lhr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tgl_lhr` date NOT NULL,
+  `tgl_lhr` date DEFAULT NULL,
   `ket` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -159,8 +176,7 @@ CREATE TABLE `petugas_koperasi` (
 --
 
 INSERT INTO `petugas_koperasi` (`id_petugas`, `nama`, `alamat`, `no_tlp`, `tmp_lhr`, `tgl_lhr`, `ket`, `password`) VALUES
-('6639a50deaacb', 'Handika', 'tampingan', 4555, 'Magelang', '0000-00-00', 'dasdasd', '$2y$10$yAt46Kudo.hFZDFsE5RTx.PIKE/qI4TCpkIF.oOdoPuBI92DCsm4S'),
-('6639d5e860505', 'pasyakopral', 'baawng', 1222, 'Magelang', '0000-00-00', 'dasdasd', '$2y$10$CL1BtrsKl0b7M208Z0STVOFd9/TMMyJLoOyGQdh2RDqR81SMR22cu');
+('664af5b9a8db7', 'aspasya', 'magelang', '5232', 'Magelang', '2024-05-20', 'ya', '$2y$10$IP7ISZJ87iIhF6tWlKZPG.iwnwbosJio7J5PIGQ8Ll1vPxV5a8Km.');
 
 -- --------------------------------------------------------
 
@@ -197,7 +213,11 @@ INSERT INTO `pinjaman` (`id_pinjaman`, `nama_pinjaman`, `id_anggota`, `besar_pin
 ('664a473256ab2', 'keluarga', '664a37300471c', 2000000, '2024-05-19', NULL, NULL, NULL, '[\"664a473256abb\"]', 'ditolak'),
 ('664a482b932ef', 'keluarga', '664a37300471c', 500000, '2024-05-19', NULL, NULL, NULL, '[\"664a482b932f8\"]', 'diminta'),
 ('664a483d128c9', 'keluarga', '664a37300471c', 500000, '2024-05-19', NULL, NULL, NULL, '[\"664a483d128d7\"]', 'ditolak'),
-('664a493d79800', 'pelajar', '664a37300471c', 500000, '2024-05-19', '2024-05-19', NULL, NULL, '[\"664a493d7981b\"]', 'diterima');
+('664a493d79800', 'pelajar', '664a37300471c', 500000, '2024-05-19', '2024-05-19', NULL, NULL, '[\"664a493d7981b\"]', 'diterima'),
+('664af74e138c4', 'pelajar', '664af6cab25c7', 1900000, '2024-05-20', '2024-05-20', '2024-05-20', '2024-05-20', '[\"664af74e138ce\", \"664af74e138cf\", \"664af74e138d0\", \"664af74e138d1\"]', 'lunas'),
+('664afb100c50e', 'pelajar', '664af6cab25c7', 900000, '2024-05-20', '2024-05-20', '2024-05-20', NULL, '[\"664afb100c517\", \"664afb100c518\", \"664afb100c519\"]', 'dipinjamkan'),
+('664afbee0d40a', 'pelajar', '664af6cab25c7', 600000, '2024-05-20', '2024-05-20', '2024-05-20', NULL, '[\"664afbee0d416\"]', 'dipinjamkan'),
+('664afd1aade6e', 'pelajar', '664af6cab25c7', 500000, '2024-05-20', NULL, NULL, NULL, '[\"664afd1aade78\"]', 'diminta');
 
 -- --------------------------------------------------------
 
@@ -216,7 +236,8 @@ CREATE TABLE `saldo` (
 --
 
 INSERT INTO `saldo` (`id_saldo`, `id_anggota`, `saldo`) VALUES
-(1, '664a37300471c', 1199000);
+(1, '664a37300471c', 1199000),
+(2, '664af6cab25c7', 60000);
 
 -- --------------------------------------------------------
 
@@ -240,7 +261,10 @@ CREATE TABLE `simpanan` (
 INSERT INTO `simpanan` (`id_simpanan`, `nm_simpanan`, `id_anggota`, `tgl_simpanan`, `besar_simpanan`, `ket`) VALUES
 (1, 'AyanoKoji', '664a37300471c', '2024-05-19', 200000, 'deposit'),
 (2, 'AyanoKoji', '664a37300471c', '2024-05-19', 1000, 'withdraw'),
-(3, 'AyanoKoji', '664a37300471c', '2024-05-19', 1000000, 'deposit');
+(3, 'AyanoKoji', '664a37300471c', '2024-05-19', 1000000, 'deposit'),
+(4, 'julpaa', '664af6cab25c7', '2024-05-20', 75000, 'deposit'),
+(5, 'julpaa', '664af6cab25c7', '2024-05-20', 5000, 'withdraw'),
+(6, 'julpaa', '664af6cab25c7', '2024-05-20', 10000, 'withdraw');
 
 -- --------------------------------------------------------
 
@@ -320,7 +344,7 @@ ALTER TABLE `super`
 -- AUTO_INCREMENT for table `detail_angsuran`
 --
 ALTER TABLE `detail_angsuran`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `kategori_pinjaman`
@@ -332,13 +356,13 @@ ALTER TABLE `kategori_pinjaman`
 -- AUTO_INCREMENT for table `saldo`
 --
 ALTER TABLE `saldo`
-  MODIFY `id_saldo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_saldo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `simpanan`
 --
 ALTER TABLE `simpanan`
-  MODIFY `id_simpanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_simpanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `super`

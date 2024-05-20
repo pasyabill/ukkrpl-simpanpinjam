@@ -10,8 +10,6 @@
 		$user = mysqli_fetch_assoc($login);
 		if(password_verify($_SESSION["pass"], $user["password"])){
 			$islogin  = true;
-		}else{
-			var_dump($user);
 		}
 	}
 
@@ -113,7 +111,6 @@
 											<li><a href="simpanan.php">Simpanan</a></li>
 											<li><a href="pinjaman.php">Pinjaman</a></li>
 											
-											<li><a href="contact.html">Contact Us</a></li>
 										</ul>
 									</nav>
 								</div>
