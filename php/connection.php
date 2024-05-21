@@ -1,9 +1,12 @@
 <?php
-$host = 'localhost'; // Ganti dengan host database Anda
-$dbname = 'simpan_pinjam'; // Ganti dengan nama database Anda
-$username = 'root'; // Ganti dengan username database Anda
-$password = ''; // Ganti dengan password database Anda
-
+$host = 'sql302.infinityfree.com';
+$dbname = 'if0_36583542_simpan_pinjam'; 
+$username = 'if0_36583542';
+$password = 'sNVzT5ltjSAj2UU'; 
+// $host = 'localhost';
+// $dbname = 'simpan_pinjam'; 
+// $username = 'root';
+// $password = ''; 
 // Buat koneksi ke database
 $conn = mysqli_connect($host, $username, $password, $dbname);
 

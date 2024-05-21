@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 20, 2024 at 07:35 AM
+-- Generation Time: May 21, 2024 at 04:11 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -237,7 +237,7 @@ CREATE TABLE `saldo` (
 
 INSERT INTO `saldo` (`id_saldo`, `id_anggota`, `saldo`) VALUES
 (1, '664a37300471c', 1199000),
-(2, '664af6cab25c7', 60000);
+(2, '664af6cab25c7', 61000);
 
 -- --------------------------------------------------------
 
@@ -264,7 +264,8 @@ INSERT INTO `simpanan` (`id_simpanan`, `nm_simpanan`, `id_anggota`, `tgl_simpana
 (3, 'AyanoKoji', '664a37300471c', '2024-05-19', 1000000, 'deposit'),
 (4, 'julpaa', '664af6cab25c7', '2024-05-20', 75000, 'deposit'),
 (5, 'julpaa', '664af6cab25c7', '2024-05-20', 5000, 'withdraw'),
-(6, 'julpaa', '664af6cab25c7', '2024-05-20', 10000, 'withdraw');
+(6, 'julpaa', '664af6cab25c7', '2024-05-20', 10000, 'withdraw'),
+(7, 'julpaa', '664af6cab25c7', '2024-05-21', 1000, 'deposit');
 
 -- --------------------------------------------------------
 
@@ -362,7 +363,7 @@ ALTER TABLE `saldo`
 -- AUTO_INCREMENT for table `simpanan`
 --
 ALTER TABLE `simpanan`
-  MODIFY `id_simpanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_simpanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `super`

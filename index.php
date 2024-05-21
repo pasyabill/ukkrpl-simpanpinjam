@@ -108,7 +108,7 @@
 									<nav class="navigation">
 										<ul class="nav menu">
 											<li><a href="index.php">Home </a></li>
-											<li><a href="simpanan.php">Simpanan</a></li>
+											<li><a href="simpanan.php">Tabungan</a></li>
 											<li><a href="pinjaman.php">Pinjaman</a></li>
 											
 										</ul>

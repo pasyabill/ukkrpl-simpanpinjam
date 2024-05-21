@@ -259,7 +259,7 @@
                                                     <form class="form" action="addsimpanan.php" method="post">
                                                         <div class="">
                                                             <label for="nominal">Nominal deposit untuk <?php echo $row['nama']; ?></label>
-                                                            <input  type="text" name="nominal" class="input">
+                                                            <input  type="number" name="nominal" class="input">
                                                         </div>
                                                         <input type="hidden" name="id_anggota" class="input" value="<?php echo $row['id_anggota']; ?>">
                                                         <input type="hidden" name="nama" class="input" value="<?php echo $row['nama']; ?>">
@@ -273,7 +273,7 @@
                                                     <form class="form" action="kurangisimpanan.php" method="post">
                                                         <div class="">
                                                             <label  for="nominal">Nominal withdraw untuk <?php echo $row['nama']; ?></label>
-                                                            <input maxlength="<?php echo $row['saldo']; ?>" type="text" name="nominal" class="input">
+                                                            <input maxlength="<?php echo $row['saldo']; ?>" type="number" name="nominal" class="input">
                                                         </div>
                                                         <input type="hidden" name="id_anggota" class="input" value="<?php echo $row['id_anggota']; ?>">
                                                         <input type="hidden" name="nama" class="input" value="<?php echo $row['nama']; ?>">
