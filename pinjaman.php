@@ -108,7 +108,7 @@
 									<nav class="navigation">
 										<ul class="nav menu">
 											<li><a href="index.php">Home </a></li>
-											<li><a href="tabungan.php">Tabungan </a></li>
+											<li><a href="simpanan.php">Tabungan </a></li>
 											<li><a href="pinjaman.php">Pinjaman </a></li>
 											
 										</ul>
@@ -166,8 +166,8 @@
 							<ul class="table-list">
 								<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 5%</li>
 								<li><i class="icofont icofont-ui-check"></i>Mulai dari 500.000	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 2 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 200.000</li>
+								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 1.9 juta</li>
+								<li><i class="icofont icofont-ui-check"></i>Angsuran hingga 4 bulan</li>
 							</ul>
 							<a href="member/pengajuan_pinjaman.php?kategori=pelajar" class="table-bottom btn">
 								mulai pinjaman pelajar
@@ -191,8 +191,8 @@
 							<ul class="table-list">
 								<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 7%</li>
 								<li><i class="icofont icofont-ui-check"></i>Mulai dari 1 juta	</li>
-								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 10 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 1000.000</li>
+								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 9.9 juta</li>
+								<li><i class="icofont icofont-ui-check"></i>Angsuran hingga 8 bulan</li>
 							</ul>
 							<a href="member/pengajuan_pinjaman.php?kategori=keluarga" class="table-bottom btn">
 								mulai pinjaman keluarga
@@ -215,9 +215,9 @@
 							<!-- Table List -->
 							<ul class="table-list">
 							<li><i class="icofont icofont-ui-check"></i>Bunga sebesar 10%</li>
-								<li><i class="icofont icofont-ui-check"></i>Mulai dari 5 juta	</li>
+								<li><i class="icofont icofont-ui-check"></i>Mulai dari 10 juta	</li>
 								<li><i class="icofont icofont-ui-check"></i>Maksimal hingga 20 juta</li>
-								<li><i class="icofont icofont-ui-check"></i>cicilan mulai dari 2000.000</li>
+								<li><i class="icofont icofont-ui-check"></i>Angsuran hingga 12 bulan</li>
 							</ul>
 							<a href="member/pengajuan_pinjaman.php?kategori=bisnis" class="table-bottom btn">
 								mulai pinjaman bisnis
