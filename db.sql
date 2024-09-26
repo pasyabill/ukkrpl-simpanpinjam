@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 21, 2024 at 04:11 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Host: 127.0.0.1:3306
+-- Generation Time: Sep 26, 2024 at 10:43 AM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `simpan_pinjam`
+-- Database: `db`
 --
 
 -- --------------------------------------------------------
@@ -27,7 +27,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `anggota`
 --
 
-CREATE TABLE `anggota` (
+DROP TABLE IF EXISTS `anggota`;
+CREATE TABLE IF NOT EXISTS `anggota` (
   `id_anggota` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -37,7 +38,8 @@ CREATE TABLE `anggota` (
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `no_tlp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ket` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `password` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_anggota`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -46,7 +48,8 @@ CREATE TABLE `anggota` (
 
 INSERT INTO `anggota` (`id_anggota`, `nama`, `alamat`, `tgl_lhr`, `tmp_lhr`, `j_kel`, `status`, `no_tlp`, `ket`, `password`) VALUES
 ('664a37300471c', 'AyanoKoji', 'tampingan', '1111-11-11', 'Magelang', 'laki-laki', 'menikah', '088216072167', '123213', '$2y$10$i0cv2CEZgAp2b6QGqYn.aOuRvolIlwMQniUhyK2SjN/laLGtPM7JK'),
-('664af6cab25c7', 'julpaa', 'Magelang', '2024-05-01', 'Magelang', 'perempuan', 'lajang', '081727383923', 'apa yha', '$2y$10$sFeED4G2DhESeN5ucYePUOWtk1a9.xRdBxiLTqFRMg4bQZ8UOiVwS');
+('664af6cab25c7', 'julpaa', 'Magelang', '2024-05-01', 'Magelang', 'perempuan', 'lajang', '081727383923', 'apa yha', '$2y$10$sFeED4G2DhESeN5ucYePUOWtk1a9.xRdBxiLTqFRMg4bQZ8UOiVwS'),
+('66efa9e023879', 'copet', 'dilan', '1999-01-05', 'dimana yha?', 'perempuan', 'menikah', '34325345645', 'lapar cuy', '$2y$10$nEQTVIvXNoQ1f7xwyBxlHeKMn5a4nv9.m02lfxrOWwYuJOOQOgmle');
 
 -- --------------------------------------------------------
 
@@ -54,13 +57,15 @@ INSERT INTO `anggota` (`id_anggota`, `nama`, `alamat`, `tgl_lhr`, `tmp_lhr`, `j_
 -- Table structure for table `angsuran`
 --
 
-CREATE TABLE `angsuran` (
+DROP TABLE IF EXISTS `angsuran`;
+CREATE TABLE IF NOT EXISTS `angsuran` (
   `id_angsuran` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_kategori` int NOT NULL,
-  `id_anggota` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_anggota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_pembayaran` date DEFAULT NULL,
   `angsuran_ke` int NOT NULL,
-  `ket` enum('belum','lunas') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'belum'
+  `ket` enum('belum','lunas') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'belum',
+  PRIMARY KEY (`id_angsuran`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -90,7 +95,10 @@ INSERT INTO `angsuran` (`id_angsuran`, `id_kategori`, `id_anggota`, `tgl_pembaya
 ('664afb100c517', 1, '664af6cab25c7', '2024-05-20', 1, 'lunas'),
 ('664afb100c518', 1, '664af6cab25c7', '2024-05-20', 2, 'lunas'),
 ('664afb100c519', 1, '664af6cab25c7', NULL, 3, 'belum'),
-('664afbee0d416', 1, '664af6cab25c7', NULL, 1, 'belum');
+('664afbee0d416', 1, '664af6cab25c7', NULL, 1, 'belum'),
+('66efaa6e1b291', 1, '66efa9e023879', '2024-09-22', 1, 'lunas'),
+('66efaa6e1b294', 1, '66efa9e023879', '2024-09-22', 2, 'lunas'),
+('66efaa6e1b296', 1, '66efa9e023879', '2024-09-22', 3, 'lunas');
 
 -- --------------------------------------------------------
 
@@ -98,12 +106,14 @@ INSERT INTO `angsuran` (`id_angsuran`, `id_kategori`, `id_anggota`, `tgl_pembaya
 -- Table structure for table `detail_angsuran`
 --
 
-CREATE TABLE `detail_angsuran` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `detail_angsuran`;
+CREATE TABLE IF NOT EXISTS `detail_angsuran` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `id_angsuran` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_jatuh_tempo` date NOT NULL,
-  `besar_angsuran` bigint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `besar_angsuran` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `detail_angsuran`
@@ -132,7 +142,10 @@ INSERT INTO `detail_angsuran` (`id`, `id_angsuran`, `tgl_jatuh_tempo`, `besar_an
 (20, '664afb100c517', '2024-06-20', 315000),
 (21, '664afb100c518', '2024-07-20', 315000),
 (22, '664afb100c519', '2024-08-20', 315000),
-(23, '664afbee0d416', '2024-06-20', 630000);
+(23, '664afbee0d416', '2024-06-20', 630000),
+(24, '66efaa6e1b291', '2024-10-22', 350000),
+(25, '66efaa6e1b294', '2024-11-22', 350000),
+(26, '66efaa6e1b296', '2024-12-22', 350000);
 
 -- --------------------------------------------------------
 
@@ -140,10 +153,12 @@ INSERT INTO `detail_angsuran` (`id`, `id_angsuran`, `tgl_jatuh_tempo`, `besar_an
 -- Table structure for table `kategori_pinjaman`
 --
 
-CREATE TABLE `kategori_pinjaman` (
-  `id_kategori_pinjaman` int NOT NULL,
-  `nama_pinjaman` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `kategori_pinjaman`;
+CREATE TABLE IF NOT EXISTS `kategori_pinjaman` (
+  `id_kategori_pinjaman` int NOT NULL AUTO_INCREMENT,
+  `nama_pinjaman` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_kategori_pinjaman`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kategori_pinjaman`
@@ -160,15 +175,17 @@ INSERT INTO `kategori_pinjaman` (`id_kategori_pinjaman`, `nama_pinjaman`) VALUES
 -- Table structure for table `petugas_koperasi`
 --
 
-CREATE TABLE `petugas_koperasi` (
+DROP TABLE IF EXISTS `petugas_koperasi`;
+CREATE TABLE IF NOT EXISTS `petugas_koperasi` (
   `id_petugas` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `no_tlp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_tlp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tmp_lhr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_lhr` date DEFAULT NULL,
   `ket` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id_petugas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -184,7 +201,8 @@ INSERT INTO `petugas_koperasi` (`id_petugas`, `nama`, `alamat`, `no_tlp`, `tmp_l
 -- Table structure for table `pinjaman`
 --
 
-CREATE TABLE `pinjaman` (
+DROP TABLE IF EXISTS `pinjaman`;
+CREATE TABLE IF NOT EXISTS `pinjaman` (
   `id_pinjaman` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nama_pinjaman` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_anggota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -194,7 +212,8 @@ CREATE TABLE `pinjaman` (
   `tgl_pinjaman` date DEFAULT NULL,
   `tgl_pelunasan` date DEFAULT NULL,
   `id_angsuran` json NOT NULL,
-  `ket` enum('diminta','ditolak','diterima','dipinjamkan','lunas') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'diminta'
+  `ket` enum('diminta','ditolak','diterima','dipinjamkan','lunas') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'diminta',
+  PRIMARY KEY (`id_pinjaman`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -217,7 +236,8 @@ INSERT INTO `pinjaman` (`id_pinjaman`, `nama_pinjaman`, `id_anggota`, `besar_pin
 ('664af74e138c4', 'pelajar', '664af6cab25c7', 1900000, '2024-05-20', '2024-05-20', '2024-05-20', '2024-05-20', '[\"664af74e138ce\", \"664af74e138cf\", \"664af74e138d0\", \"664af74e138d1\"]', 'lunas'),
 ('664afb100c50e', 'pelajar', '664af6cab25c7', 900000, '2024-05-20', '2024-05-20', '2024-05-20', NULL, '[\"664afb100c517\", \"664afb100c518\", \"664afb100c519\"]', 'dipinjamkan'),
 ('664afbee0d40a', 'pelajar', '664af6cab25c7', 600000, '2024-05-20', '2024-05-20', '2024-05-20', NULL, '[\"664afbee0d416\"]', 'dipinjamkan'),
-('664afd1aade6e', 'pelajar', '664af6cab25c7', 500000, '2024-05-20', NULL, NULL, NULL, '[\"664afd1aade78\"]', 'diminta');
+('664afd1aade6e', 'pelajar', '664af6cab25c7', 500000, '2024-05-20', NULL, NULL, NULL, '[\"664afd1aade78\"]', 'diminta'),
+('66efaa6e1b274', 'pelajar', '66efa9e023879', 1000000, '2024-09-22', '2024-09-22', '2024-09-22', '2024-09-22', '[\"66efaa6e1b291\", \"66efaa6e1b294\", \"66efaa6e1b296\"]', 'lunas');
 
 -- --------------------------------------------------------
 
@@ -225,11 +245,13 @@ INSERT INTO `pinjaman` (`id_pinjaman`, `nama_pinjaman`, `id_anggota`, `besar_pin
 -- Table structure for table `saldo`
 --
 
-CREATE TABLE `saldo` (
-  `id_saldo` int NOT NULL,
+DROP TABLE IF EXISTS `saldo`;
+CREATE TABLE IF NOT EXISTS `saldo` (
+  `id_saldo` int NOT NULL AUTO_INCREMENT,
   `id_anggota` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `saldo` bigint DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `saldo` bigint DEFAULT '0',
+  PRIMARY KEY (`id_saldo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `saldo`
@@ -237,7 +259,8 @@ CREATE TABLE `saldo` (
 
 INSERT INTO `saldo` (`id_saldo`, `id_anggota`, `saldo`) VALUES
 (1, '664a37300471c', 1199000),
-(2, '664af6cab25c7', 61000);
+(2, '664af6cab25c7', 61000),
+(3, '66efa9e023879', 0);
 
 -- --------------------------------------------------------
 
@@ -245,14 +268,16 @@ INSERT INTO `saldo` (`id_saldo`, `id_anggota`, `saldo`) VALUES
 -- Table structure for table `simpanan`
 --
 
-CREATE TABLE `simpanan` (
-  `id_simpanan` int NOT NULL,
+DROP TABLE IF EXISTS `simpanan`;
+CREATE TABLE IF NOT EXISTS `simpanan` (
+  `id_simpanan` int NOT NULL AUTO_INCREMENT,
   `nm_simpanan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `id_anggota` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_anggota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_simpanan` date NOT NULL,
   `besar_simpanan` bigint NOT NULL,
-  `ket` enum('deposit','withdraw') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'deposit'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `ket` enum('deposit','withdraw') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'deposit',
+  PRIMARY KEY (`id_simpanan`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `simpanan`
@@ -273,103 +298,13 @@ INSERT INTO `simpanan` (`id_simpanan`, `nm_simpanan`, `id_anggota`, `tgl_simpana
 -- Table structure for table `super`
 --
 
-CREATE TABLE `super` (
-  `id` int NOT NULL,
+DROP TABLE IF EXISTS `super`;
+CREATE TABLE IF NOT EXISTS `super` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) NOT NULL,
-  `password` varchar(1000) NOT NULL
+  `password` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `anggota`
---
-ALTER TABLE `anggota`
-  ADD PRIMARY KEY (`id_anggota`);
-
---
--- Indexes for table `angsuran`
---
-ALTER TABLE `angsuran`
-  ADD PRIMARY KEY (`id_angsuran`);
-
---
--- Indexes for table `detail_angsuran`
---
-ALTER TABLE `detail_angsuran`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `kategori_pinjaman`
---
-ALTER TABLE `kategori_pinjaman`
-  ADD PRIMARY KEY (`id_kategori_pinjaman`);
-
---
--- Indexes for table `petugas_koperasi`
---
-ALTER TABLE `petugas_koperasi`
-  ADD PRIMARY KEY (`id_petugas`);
-
---
--- Indexes for table `pinjaman`
---
-ALTER TABLE `pinjaman`
-  ADD PRIMARY KEY (`id_pinjaman`);
-
---
--- Indexes for table `saldo`
---
-ALTER TABLE `saldo`
-  ADD PRIMARY KEY (`id_saldo`);
-
---
--- Indexes for table `simpanan`
---
-ALTER TABLE `simpanan`
-  ADD PRIMARY KEY (`id_simpanan`);
-
---
--- Indexes for table `super`
---
-ALTER TABLE `super`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `detail_angsuran`
---
-ALTER TABLE `detail_angsuran`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `kategori_pinjaman`
---
-ALTER TABLE `kategori_pinjaman`
-  MODIFY `id_kategori_pinjaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `saldo`
---
-ALTER TABLE `saldo`
-  MODIFY `id_saldo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `simpanan`
---
-ALTER TABLE `simpanan`
-  MODIFY `id_simpanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `super`
---
-ALTER TABLE `super`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

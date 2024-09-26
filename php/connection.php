@@ -1,13 +1,12 @@
 <?php
-$host = 'sql302.infinityfree.com';
-$dbname = 'if0_36583542_simpan_pinjam'; 
-$username = 'if0_36583542';
-$password = 'sNVzT5ltjSAj2UU'; 
-// $host = 'localhost';
-// $dbname = 'simpan_pinjam'; 
+// $host = '127.0.0.1';
+// $dbname = 'simpanpinjampakahmad'; 
 // $username = 'root';
 // $password = ''; 
-// Buat koneksi ke database
+$host = 'localhost';
+$dbname = 'db'; 
+$username = 'root';
+$password = ''; 
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
 // Periksa koneksi
